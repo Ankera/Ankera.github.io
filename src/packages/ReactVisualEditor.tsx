@@ -65,7 +65,6 @@ const ReactVisualEditor: FC<{
         e.dataTransfer!.dropEffect = 'none';
       }),
       drop: useCallbackRef((e: DragEvent) => {
-        console.log('新增block');
         onChange({
           ...value,
           blocks: [

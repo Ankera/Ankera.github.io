@@ -9,7 +9,7 @@ export interface VisualEditorBlock {
   focus?: boolean,
   hasResize?: boolean,                                             // 是否调整过宽度或者高度
   slotName?: string,
-  adjustPosition?: boolean,
+  adjustPosition?: boolean, // 是否需要调整位置
   zIndex?: number,
   props?: Record<string, any>,
   model?: Record<string, string>,
