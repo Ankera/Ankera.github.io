@@ -4,7 +4,8 @@
   "description": "You can use the [editor on GitHub](https://github.com/Ankera/Ankera.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "vite",
+    "build": "tsc && vite build"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,24 @@
   "bugs": {
     "url": "https://github.com/Ankera/Ankera.github.io/issues"
   },
-  "homepage": "https://github.com/Ankera/Ankera.github.io#readme"
+  "homepage": "https://github.com/Ankera/Ankera.github.io#readme",
+  "dependencies": {
+    "@ant-design/icons": "^4.3.0",
+    "antd": "^4.10.0",
+    "classnames": "^2.2.6",
+    "deepcopy": "^2.1.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-color": "^2.19.3"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.11",
+    "@types/react": "^17.0.0",
+    "@types/react-color": "^3.0.4",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react-refresh": "^1.1.0",
+    "sass": "^1.32.4",
+    "typescript": "^4.1.2",
+    "vite": "^2.0.0-beta.5"
+  }
 }
