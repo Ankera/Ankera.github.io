@@ -17,21 +17,27 @@ const App = () => {
         top: 100,
         left: 100,
         width: 100,
-        height: 100
+        height: 100,
+        adjustPosition: false,
+        focus: false,
       },
       {
         componentKey: 'button',
         top: 200,
         left: 200,
         width: 100,
-        height: 100
+        height: 100,
+        adjustPosition: false,
+        focus: false,
       },
       {
         componentKey: 'input',
         top: 300,
         left: 300,
         width: 100,
-        height: 100
+        height: 100,
+        adjustPosition: false,
+        focus: false,
       }
     ],
   })

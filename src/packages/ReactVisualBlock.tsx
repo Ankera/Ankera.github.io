@@ -1,26 +1,28 @@
 import { FC, CSSProperties, useMemo, useRef, useEffect } from 'react';
+import classnames from 'classnames';
 import { VisualEditorBlock, VisualEditorOption } from './ReactVisualEditor.utils';
 import { useUpdate } from './hook/useUpdate';
 
 export const ReactVisualBlock: FC<{
   block: VisualEditorBlock;
-  config: VisualEditorOption
+  config: VisualEditorOption;
+  onMouseDown?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }> = (props) => {
-  const { block, config } = props;
-  const { componentMap } = config;
+  // const { block, config, onMouseDown } = props;
 
   const forceUpdate = useUpdate();
 
   const stlyes: CSSProperties = useMemo(() => {
     return {
-      left: `${block.left}px`,
-      top: `${block.top}px`,
+      left: `${props.block.left}px`,
+      top: `${props.block.top}px`,
+      opacity: props.block.adjustPosition ? 0 : ''
       // width: `${block.width}px`,
       // height: `${block.height}px`,
     }
-  }, [block.left, block.top]);
+  }, [props.block.left, props.block.top, props.block.adjustPosition]);
 
-  const component = componentMap[block.componentKey];
+  const component = props.config.componentMap[props.block.componentKey];
   let render: any;
   if (!!component) {
     render = component.render({} as any)
@@ -29,7 +31,7 @@ export const ReactVisualBlock: FC<{
   const elRef = useRef({} as HTMLDivElement);
 
   useEffect(() => {
-    const { top, left } = block;
+    const { top, left } = props.block;
     const { width, height } = elRef.current!.getBoundingClientRect();
     props.block.top = top - height / 2;
     props.block.left = left - width / 2;
@@ -37,11 +39,20 @@ export const ReactVisualBlock: FC<{
     forceUpdate();
   }, [])
 
+  const classNames: any = useMemo(() => classnames([
+    'react-visual-editor-block',
+    {
+      'react-visual-editor-block-focus': props.block.focus
+    }
+  ]), [props.block.focus]);
+
   return (
     <div
       style={stlyes}
       ref={elRef}
-      className="react-visual-editor-block">
+      onMouseDown={props.onMouseDown}
+      className={classNames}
+    >
       {render}
     </div>
   )

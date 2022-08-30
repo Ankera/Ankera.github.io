@@ -124,7 +124,6 @@ $primary: #409EFF;
     overflow-y: auto;
 
     .react-visual-editor-container {
-      border: 1px solid red;
 
       .react-visual-editor-block {
 
@@ -140,7 +139,7 @@ $primary: #409EFF;
         }
 
         &.react-visual-editor-block-focus {
-          &:before {
+          &:after {
             content: '';
             position: absolute;
             top: -2px;
