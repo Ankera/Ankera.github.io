@@ -142,6 +142,10 @@ const ReactVisualEditor: FC<{
           methods.clearFocus(block);
         }
       }
+
+      setTimeout(() => {
+        blockDraggier.mouseDown(e);
+      });
     }
 
     const mouseDownContainer = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -157,6 +161,52 @@ const ReactVisualEditor: FC<{
     return {
       block: mouseDownBlock,
       contaienr: mouseDownContainer
+    }
+  })();
+
+  /**
+   * 处理 block 在 container容器中的拖拽事件
+   */
+  const blockDraggier = (() => {
+    const dragData = useRef({
+      startX: 0,
+      startY: 0,
+      // 拖拽时选中的 block
+      startPosArray: [] as { top: number, left: number }[]
+    });
+
+    const mouseDown = useCallbackRef((e: React.MouseEvent<HTMLDivElement>) => {
+      document.addEventListener('mousemove', mouseMove);
+      document.addEventListener('mouseup', mouseUp);
+      dragData.current = {
+        startX: e.clientX,
+        startY: e.clientY,
+        startPosArray: focusData.focus.map(({ top, left }) => ({ top, left }))
+      }
+    });
+
+    const mouseMove = useCallbackRef((e: MouseEvent) => {
+      const { startX, startY, startPosArray } = dragData.current;
+      const { clientX: moveX, clientY: moveY } = e;
+      const durX = moveX - startX;
+      const durY = moveY - startY;
+
+      focusData.focus.forEach((block: VisualEditorBlock, index: number) => {
+        const { top, left } = startPosArray[index];
+        block.top = top + durY;
+        block.left = left + durX;
+      });
+
+      methods.updateBlocks(props.value.blocks);
+    });
+
+    const mouseUp = useCallbackRef((e: MouseEvent) => {
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+    });
+
+    return {
+      mouseDown
     }
   })();
 
