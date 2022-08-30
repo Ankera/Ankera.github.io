@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
-import { useCallbackRef } from './packages/hook/useCallbackRef';
+import { useState } from "react";;
 import ReactVisualEditor from './packages/ReactVisualEditor';
 import { visualConfig } from './visual.config';
 import { VisualEditorValue } from './packages/ReactVisualEditor.utils';
+import './app.scss';
 
 const App = () => {
 

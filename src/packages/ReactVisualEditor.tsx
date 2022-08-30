@@ -1,4 +1,4 @@
-import { FC, useMemo, CSSProperties, useRef } from 'react';
+import { FC, useMemo, CSSProperties, useRef, useState } from 'react';
 import { useCallbackRef } from './hook/useCallbackRef';
 import {
   VisualEditorValue,
@@ -8,6 +8,8 @@ import {
   createNewBlock
 } from './ReactVisualEditor.utils';
 import { ReactVisualBlock } from './ReactVisualBlock';
+import { useVisualCommand } from './ReactVisualEditor.command';
+import { createEvent } from './plugin/event';
 import './ReactVisualEditor.scss';
 
 const ReactVisualEditor: FC<{
@@ -16,7 +18,13 @@ const ReactVisualEditor: FC<{
   onChange: (value: VisualEditorValue) => void;
 }> = (props) => {
 
-  // const { config, value, onChange } = props;
+  // 当前是否预览模式
+  const [preview, setPreview] = useState(false);
+  // 当前是否处于编辑状态
+  const [editing, setEditing] = useState(false);
+
+  const [dragstart] = useState(() => createEvent());
+  const [dragend] = useState(() => createEvent())
 
   const containerRef = useRef(null as null | HTMLDivElement);
 
@@ -43,6 +51,8 @@ const ReactVisualEditor: FC<{
         containerRef.current?.addEventListener('drop', container.drop);
 
         dragData.current.dragComponent = dragComponent;
+
+        dragstart.emit();
       }),
       dragEnd: useCallbackRef((e: React.DragEvent<HTMLDivElement>) => {
         containerRef.current?.removeEventListener('dragenter', container.dargEnter);
@@ -65,16 +75,17 @@ const ReactVisualEditor: FC<{
         e.dataTransfer!.dropEffect = 'none';
       }),
       drop: useCallbackRef((e: DragEvent) => {
-        props.onChange({
-          ...props.value,
-          blocks: [
-            ...props.value.blocks,
-            createNewBlock({
-              top: e.offsetY,
-              left: e.offsetX,
-              component: dragData.current.dragComponent!
-            })
-          ]
+        methods.updateBlocks([
+          ...props.value.blocks,
+          createNewBlock({
+            top: e.offsetY,
+            left: e.offsetX,
+            component: dragData.current.dragComponent!
+          })
+        ]);
+
+        setTimeout(() => {
+          dragend.emit();
         })
       }),
     }
@@ -172,7 +183,9 @@ const ReactVisualEditor: FC<{
       startX: 0,
       startY: 0,
       // 拖拽时选中的 block
-      startPosArray: [] as { top: number, left: number }[]
+      startPosArray: [] as { top: number, left: number }[],
+      // 是否处于拖拽中
+      dragging: false,
     });
 
     const mouseDown = useCallbackRef((e: React.MouseEvent<HTMLDivElement>) => {
@@ -181,7 +194,8 @@ const ReactVisualEditor: FC<{
       dragData.current = {
         startX: e.clientX,
         startY: e.clientY,
-        startPosArray: focusData.focus.map(({ top, left }) => ({ top, left }))
+        startPosArray: focusData.focus.map(({ top, left }) => ({ top, left })),
+        dragging: false
       }
     });
 
@@ -198,17 +212,74 @@ const ReactVisualEditor: FC<{
       });
 
       methods.updateBlocks(props.value.blocks);
+      if (!dragData.current.dragging) {
+        dragData.current.dragging = true;
+        dragstart.emit();
+      }
     });
 
     const mouseUp = useCallbackRef((e: MouseEvent) => {
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);
+      if (dragData.current.dragging) {
+        dragend.emit();
+      }
     });
 
     return {
       mouseDown
     }
   })();
+
+  /**
+   * 命令管理对象
+   */
+  const commander = useVisualCommand({
+    value: props.value,
+    focusData,
+    updateBlocks: methods.updateBlocks,
+    dragstart,
+    dragend
+  });
+
+  const buttons: {
+    label: string | (() => string),
+    icon: string | (() => string),
+    tip?: string | (() => string),
+    handler: () => void,
+  }[] = [
+      { label: '撤销', icon: 'icon-back', handler: commander.undo, tip: 'ctrl+z' },
+      { label: '重做', icon: 'icon-forward', handler: commander.redo, tip: 'ctrl+y, ctrl+shift+z' },
+      {
+        label: () => preview ? '编辑' : '预览',
+        icon: () => preview ? 'icon-edit' : 'icon-browse',
+        handler: () => {
+          console.log('111')
+          // if (!preview) {
+          //   methods.clearFocus()
+          // }
+          // setPreview(!preview)
+        },
+      },
+      {
+        label: '导入', icon: 'icon-import', handler: () => { }
+      },
+      {
+        label: '导出',
+        icon: 'icon-export',
+        handler: () => { }
+      },
+      // { label: '置顶', icon: 'icon-place-top', handler: () => { }, tip: 'ctrl+up' },
+      // { label: '置底', icon: 'icon-place-bottom', handler: () => { }, tip: 'ctrl+down' },
+      { label: '删除', icon: 'icon-delete', handler: commander.delete, tip: 'ctrl+d, backspace, delete' },
+      { label: '清空', icon: 'icon-reset', handler: () => { }, },
+      {
+        label: '关闭', icon: 'icon-close', handler: () => {
+          methods.clearFocus()
+          setEditing(false)
+        },
+      },
+    ]
 
   return (
     <div className="react-visual-editor">
@@ -230,7 +301,23 @@ const ReactVisualEditor: FC<{
         }
       </div>
 
-      <div className="react-visual-editor-head">head</div>
+      <div className="react-visual-editor-head">
+        {
+          buttons.map((btn, index: number) => {
+            const label = typeof btn.label === 'function' ? btn.label() : btn.label;
+            const icon = typeof btn.icon === 'function' ? btn.icon() : btn.icon;
+            return (
+              <div
+                className="react-visual-editor-head-button"
+                onClick={btn.handler}
+                key={index}>
+                <i className={`iconfont ${icon}`}></i>
+                <span>{label}</span>
+              </div>
+            )
+          })
+        }
+      </div>
 
       <div className="react-visual-editor-operator">operator</div>
 
