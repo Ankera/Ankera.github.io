@@ -16,11 +16,12 @@ export const ReactVisualBlock: FC<{
     return {
       left: `${props.block.left}px`,
       top: `${props.block.top}px`,
-      opacity: props.block.adjustPosition ? 0 : ''
+      opacity: props.block.adjustPosition ? 0 : '',
       // width: `${block.width}px`,
       // height: `${block.height}px`,
+      zIndex: props.block.zIndex || 0,
     }
-  }, [props.block.left, props.block.top, props.block.adjustPosition]);
+  }, [props.block.left, props.block.top, props.block.adjustPosition, props.block.zIndex]);
 
   const component = props.config.componentMap[props.block.componentKey];
   let render: any;

@@ -1,5 +1,7 @@
 import { FC, useMemo, CSSProperties, useRef, useState } from 'react';
 import { useCallbackRef } from './hook/useCallbackRef';
+import classnames from 'classnames';
+import { notification } from 'antd';
 import {
   VisualEditorValue,
   VisualEditorOption,
@@ -10,6 +12,7 @@ import {
 import { ReactVisualBlock } from './ReactVisualBlock';
 import { useVisualCommand } from './ReactVisualEditor.command';
 import { createEvent } from './plugin/event';
+import { $$dialog } from "./utils/dialog-service";
 import './ReactVisualEditor.scss';
 
 const ReactVisualEditor: FC<{
@@ -106,12 +109,26 @@ const ReactVisualEditor: FC<{
       focus,
       unfocus
     }
-  }, [props.value.blocks])
+  }, [props.value.blocks]);
+
+  const classes = useMemo(() => classnames([
+    'react-visual-editor',
+    {
+      'react-visual-editor-preview': preview,
+    }
+  ]), [preview])
 
   /**
    * 对外暴露的方法
    */
   const methods = {
+    /**
+     * 更新所有value
+     * @param value 
+     */
+    updateValue: (value: VisualEditorValue) => {
+      props.onChange({ ...value });
+    },
     /***
      * 更新 block
      */
@@ -138,6 +155,9 @@ const ReactVisualEditor: FC<{
    */
   const focusHandler = (() => {
     const mouseDownBlock = (e: React.MouseEvent<HTMLDivElement>, block: VisualEditorBlock) => {
+      if (preview) {
+        return;
+      }
       console.log('mouseDown block');
       if (e.shiftKey) {
         if (focusData.focus.length <= 1) {
@@ -160,6 +180,9 @@ const ReactVisualEditor: FC<{
     }
 
     const mouseDownContainer = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (preview) {
+        return;
+      }
       if (e.target !== e.currentTarget) {
         return;
       }
@@ -238,6 +261,7 @@ const ReactVisualEditor: FC<{
     value: props.value,
     focusData,
     updateBlocks: methods.updateBlocks,
+    updateValue: methods.updateValue,
     dragstart,
     dragend
   });
@@ -254,25 +278,39 @@ const ReactVisualEditor: FC<{
         label: () => preview ? '编辑' : '预览',
         icon: () => preview ? 'icon-edit' : 'icon-browse',
         handler: () => {
-          console.log('111')
-          // if (!preview) {
-          //   methods.clearFocus()
-          // }
-          // setPreview(!preview)
+          if (!preview) {
+            methods.clearFocus()
+          }
+          setPreview(!preview)
         },
       },
       {
-        label: '导入', icon: 'icon-import', handler: () => { }
+        label: '导入',
+        icon: 'icon-import',
+        handler: async () => {
+          const text = await $$dialog.textarea('', { title: '请输入导入的JSON字符串' });
+          try {
+            const data = JSON.parse(text || '{}');
+            console.log('data', data);
+            commander.updateValue(data)
+          } catch (e) {
+            console.error(e)
+            notification.open({
+              message: '导入失败！',
+              description: '导入的数据格式不正常，请检查！'
+            })
+          }
+        }
       },
       {
         label: '导出',
         icon: 'icon-export',
-        handler: () => { }
+        handler: () => $$dialog.textarea(JSON.stringify(props.value), { editReadonly: true, title: '导出的JSON数据' })
       },
-      // { label: '置顶', icon: 'icon-place-top', handler: () => { }, tip: 'ctrl+up' },
-      // { label: '置底', icon: 'icon-place-bottom', handler: () => { }, tip: 'ctrl+down' },
+      { label: '置顶', icon: 'icon-place-top', handler: commander.placeTop, tip: 'ctrl+up' },
+      { label: '置底', icon: 'icon-place-bottom', handler: commander.placeBottom, tip: 'ctrl+down' },
       { label: '删除', icon: 'icon-delete', handler: commander.delete, tip: 'ctrl+d, backspace, delete' },
-      { label: '清空', icon: 'icon-reset', handler: () => { }, },
+      { label: '清空', icon: 'icon-reset', handler: commander.clear, },
       {
         label: '关闭', icon: 'icon-close', handler: () => {
           methods.clearFocus()
@@ -282,7 +320,7 @@ const ReactVisualEditor: FC<{
     ]
 
   return (
-    <div className="react-visual-editor">
+    <div className={classes}>
       <div className="react-visual-editor-menu">
         {
           props.config.componentList.map((component: VisualEditorComponent, index: number) => (

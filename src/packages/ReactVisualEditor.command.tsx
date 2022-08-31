@@ -9,6 +9,7 @@ export function useVisualCommand(
     focusData,
     value,
     updateBlocks,
+    updateValue,
     dragstart,
     dragend
   }: {
@@ -18,6 +19,7 @@ export function useVisualCommand(
     },
     value: VisualEditorValue,
     updateBlocks: (blocks: VisualEditorBlock[]) => void;
+    updateValue: (value: VisualEditorValue) => void;
     dragstart: { on: (cb: () => void) => void, off: (cb: () => void) => void };
     dragend: { on: (cb: () => void) => void, off: (cb: () => void) => void };
   }
@@ -112,11 +114,122 @@ export function useVisualCommand(
     },
   })
 
+  /**
+   * 置顶
+   */
+  commander.useRegister({
+    name: 'placeTop',
+    keyboard: 'ctrl+up',
+    execute: () => {
+      const before = deepcopy(value.blocks);
+      const after = (() => {
+        const { focus, unfocus } = focusData;
+        const maxUnFocusIndex = unfocus.reduce((prev, item) => Math.max(prev, item.zIndex || 0), -Infinity);
+        const minFocusIndex = focus.reduce((prev, item) => Math.min(prev, item.zIndex || 0), Infinity);
+        let dur = maxUnFocusIndex - minFocusIndex;
+        if (dur >= 0) {
+          dur++;
+          focus.forEach(block => {
+            block.zIndex = (block.zIndex || 0) + dur;
+          })
+        }
+        return value.blocks;
+      })();
+      return {
+        redo: () => {
+          updateBlocks(deepcopy(after))
+        },
+        undo: () => {
+          updateBlocks(deepcopy(before))
+        },
+      }
+    }
+  })
+
+  /**
+   * 置低
+   */
+  commander.useRegister({
+    name: 'placeBottom',
+    keyboard: 'ctrl+down',
+    execute: () => {
+      const before = deepcopy(value.blocks);
+      const after = (() => {
+        const { focus, unfocus } = focusData;
+        const minUnFocusIndex = unfocus.reduce((prev, item) => Math.min(prev, item.zIndex || 0), Infinity);
+        const maxFocusIndex = focus.reduce((prev, item) => Math.max(prev, item.zIndex || 0), -Infinity);
+        const minFocusIndex = focus.reduce((prev, item) => Math.min(prev, item.zIndex || 0), Infinity);
+        let dur = maxFocusIndex - minUnFocusIndex;
+        if (dur >= 0) {
+          dur++;
+          focus.forEach(block => {
+            block.zIndex = (block.zIndex || 0) - dur;
+          });
+          if (minFocusIndex - dur < 0) {
+            dur = dur - minFocusIndex;
+            value.blocks.forEach(block => {
+              block.zIndex = (block.zIndex || 0) + dur;
+            })
+          }
+        }
+        return value.blocks;
+      })();
+      return {
+        redo: () => {
+          updateBlocks(deepcopy(after))
+        },
+        undo: () => {
+          updateBlocks(deepcopy(before))
+        },
+      }
+    }
+  })
+
+  /**
+   * 清空
+   */
+  commander.useRegister({
+    name: 'clear',
+    execute: () => {
+      let data = {
+        before: deepcopy(value.blocks),
+        after: deepcopy([]),
+      }
+      return {
+        redo: () => {
+          updateBlocks(deepcopy(data.after))
+        },
+        undo: () => {
+          updateBlocks(deepcopy(data.before))
+        },
+      }
+    }
+  });
+
+  /**
+   * 更新数据
+   */
+  commander.useRegister({
+    name: 'updateValue',
+    execute: (newValue: VisualEditorValue) => {
+      let before = deepcopy(value);
+      let after = deepcopy(newValue);
+      return {
+        redo: () => updateValue(deepcopy(after!)),
+        undo: () => updateValue(deepcopy(before!)),
+      }
+    },
+  })
+
   commander.useInit();
 
   return {
     delete: () => commander.state.commands.delete(),
     redo: () => commander.state.commands.redo(),
-    undo: () => commander.state.commands.undo()
+    undo: () => commander.state.commands.undo(),
+    placeTop: () => commander.state.commands.placeTop(),
+    placeBottom: () => commander.state.commands.placeBottom(),
+    clear: () => commander.state.commands.clear(),
+    updateValue: (value: VisualEditorValue) => commander.state.commands.updateValue(value)
   }
 }

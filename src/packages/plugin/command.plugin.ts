@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { KeyboardCode } from './keyboard-code';
 
 export interface CommandExecute {
+  name?: string;                                            // 动作的名称，log知道是那个动作
   undo?: () => void,                                        // 撤销
   redo: () => void,                                         // 重做
 }
@@ -51,6 +52,7 @@ export function useCommander() {
       state.commands[command.name] = (...args: any[]) => {
         const { redo, undo } = commandRef.current.execute(...args);
 
+        // 重做命令
         redo();
 
         // 如果命令执行结束之后，不需要进入队列，则直接结束
@@ -64,7 +66,8 @@ export function useCommander() {
           queue = queue.splice(0, current + 1);
           state.queue = queue;
         }
-        queue.push({ redo, undo });
+
+        queue.push({ redo, undo, name: command.name });
 
         // 索引加1，指向队列中的最后一个指令
         state.current = current + 1;
