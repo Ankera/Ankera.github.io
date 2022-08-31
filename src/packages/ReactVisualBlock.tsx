@@ -7,6 +7,7 @@ export const ReactVisualBlock: FC<{
   block: VisualEditorBlock;
   config: VisualEditorOption;
   onMouseDown?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onContextmenu?: (e: React.MouseEvent<HTMLDivElement>) => void,
 }> = (props) => {
   // const { block, config, onMouseDown } = props;
 
@@ -52,6 +53,7 @@ export const ReactVisualBlock: FC<{
       style={stlyes}
       ref={elRef}
       onMouseDown={props.onMouseDown}
+      onContextMenu={props.onContextmenu}
       className={classNames}
     >
       {render}

@@ -13,6 +13,7 @@ import { ReactVisualBlock } from './ReactVisualBlock';
 import { useVisualCommand } from './ReactVisualEditor.command';
 import { createEvent } from './plugin/event';
 import { $$dialog } from "./utils/dialog-service";
+import { $$dropdown, DropdownOption } from "./utils/dropdown-service";
 import './ReactVisualEditor.scss';
 
 const ReactVisualEditor: FC<{
@@ -119,6 +120,28 @@ const ReactVisualEditor: FC<{
   ]), [preview])
 
   /**
+   * 右键
+   */
+  const handler = {
+    onContextmenu: (e: React.MouseEvent<HTMLDivElement>, block: VisualEditorBlock) => {
+      if (preview) return
+      e.preventDefault()
+      e.stopPropagation()
+
+      $$dropdown({
+        reference: e.nativeEvent,
+        render: () => <>
+          <DropdownOption label="置顶节点" icon="icon-place-top" onClick={commander.placeTop} />
+          <DropdownOption label="置底节点" icon="icon-place-bottom" onClick={commander.placeBottom} />
+          <DropdownOption label="删除节点" icon="icon-delete" onClick={commander.delete} />
+          <DropdownOption label="查看数据" icon="icon-browse" {...{ onClick: () => methods.showBlockData(block) }} />
+          <DropdownOption label="导入节点" icon="icon-import" {...{ onClick: () => methods.importBlockData(block) }} />
+        </>
+      })
+    }
+  }
+
+  /**
    * 对外暴露的方法
    */
   const methods = {
@@ -147,7 +170,24 @@ const ReactVisualEditor: FC<{
         block.focus = false;
       });
       methods.updateBlocks(props.value.blocks);
-    }
+    },
+    /**
+     * 查看节点数据
+     * @param block 
+     */
+    showBlockData: (block: VisualEditorBlock) => {
+      $$dialog.textarea(JSON.stringify(block), { title: '节点数据', editReadonly: true })
+    },
+    importBlockData: async (block: VisualEditorBlock) => {
+      const text = await $$dialog.textarea('', { title: '请输入节点Json字符串' });
+      try {
+        const data = JSON.parse(text || '');
+        commander.updateBlock(data, block);
+      } catch (e) {
+        console.error(e)
+        notification.open({ message: '解析json字符串出错' })
+      }
+    },
   }
 
   /**
@@ -291,7 +331,6 @@ const ReactVisualEditor: FC<{
           const text = await $$dialog.textarea('', { title: '请输入导入的JSON字符串' });
           try {
             const data = JSON.parse(text || '{}');
-            console.log('data', data);
             commander.updateValue(data)
           } catch (e) {
             console.error(e)
@@ -370,6 +409,9 @@ const ReactVisualEditor: FC<{
               <ReactVisualBlock
                 key={index}
                 block={block}
+                onContextmenu={(e: React.MouseEvent<HTMLDivElement>) => {
+                  handler.onContextmenu(e, block)
+                }}
                 config={props.config}
                 onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => focusHandler.block(e, block)}
               />

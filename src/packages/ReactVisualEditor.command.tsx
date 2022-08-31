@@ -221,6 +221,23 @@ export function useVisualCommand(
     },
   })
 
+  /**
+   * 更新节点数据
+   */
+  commander.useRegister({
+    name: 'updateBlock',
+    execute: (newBlock: VisualEditorBlock, oldBlock: VisualEditorBlock) => {
+      const before = deepcopy(value);
+      const index = value.blocks!.indexOf(oldBlock);
+      value.blocks.splice(index, 1, newBlock);
+      const after = deepcopy(value);
+      return {
+        redo: () => updateValue(deepcopy(after!)),
+        undo: () => updateValue(deepcopy(before!)),
+      }
+    },
+  })
+
   commander.useInit();
 
   return {
@@ -230,6 +247,7 @@ export function useVisualCommand(
     placeTop: () => commander.state.commands.placeTop(),
     placeBottom: () => commander.state.commands.placeBottom(),
     clear: () => commander.state.commands.clear(),
-    updateValue: (value: VisualEditorValue) => commander.state.commands.updateValue(value)
+    updateValue: (value: VisualEditorValue) => commander.state.commands.updateValue(value),
+    updateBlock: (newBlock: VisualEditorBlock, oldBlock: VisualEditorBlock) => commander.state.commands.updateBlock(newBlock, oldBlock)
   }
 }
