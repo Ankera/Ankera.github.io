@@ -5,10 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .link-01 {
+      width: 80%;
+      height: 48px;
+      line-height: 48px;
+      margin: 0 auto;
+      font-size: 24px;
+      background-color: #cccccc;
+      margin-bottom: 32px;
+    }
+  </style>
 </head>
 <body>
-  <h1>hello world</h1>
-  <h1>hello world</h1>
-  <h1>hello world</h1>
+  <div class="link-01">
+    <a href="https://www.vevor.com/">a链接href跳转</a>
+  </div>
+
+  <div class="link-01" id="link02">
+    window.open跳转
+  </div>
+
+  <div class="link-01" id="link03">
+    模拟a点击跳转
+  </div>
 </body>
+
+<script>
+  const link02 = document.getElementById('link02')
+  link02.addEventListener('click', function(){
+    window.open('https://www.vevor.com/')
+  })
+
+  const link03 = document.getElementById('link03')
+  link03.addEventListener('click', function ( ) {
+    const a = document.createElement('a');
+      const id = 'newpage'
+      const url = 'pay.html'
+      a.setAttribute('href', 'https://www.vevor.com/');
+      a.setAttribute('target', '_blank');
+      a.setAttribute('id', id);
+      // 防止反复添加
+      if(!document.getElementById(id)) {
+          document.body.appendChild(a);
+      }
+      a.click();
+  })
+</script>
 </html>
