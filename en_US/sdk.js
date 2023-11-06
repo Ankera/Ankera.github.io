@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 try {
-  console.log('=====github====== sdk===89');
+  console.log('=====github====== sdk===89 00');
   (window.FB && !window.FB.__buffer) ||
     (function () {
       var apply = Function.prototype.apply;
@@ -9592,6 +9592,18 @@ try {
                       }))
                   : (f = window.open(a.url, a.id, e));
                 console.log('===6666==', a, e, f)
+                const JS_FB = document.getElementById('js-facebook');
+                if(a.post){
+                  JS_FB.innerHTML = `
+                   <h1>支持 a.post</h1>
+                   window.open 支持的参数 ${e}
+                  `
+                } else {
+                  JS_FB.innerHTML = `
+                  <h1>====不不支持 a.post</h1>
+                   window.open 支持的参数 ${e}
+                  `
+                }
                 if (
                   !f &&
                   c("sdk.feature")("popup_blocker_scribe_logging", !0)

