@@ -20,7 +20,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-console.log('=====github====== sdk_home');
 (function _(a, b, c, d, e) {
   var f = window.console;
   f &&
@@ -126,3 +125,5 @@ console.log('=====github====== sdk_home');
   ],
   true
 );
+
+console.log('=====github= 88===== sdk_home');
