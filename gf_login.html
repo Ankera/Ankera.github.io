@@ -1,104 +1,115 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Facebook Login JavaScript Example</title>
-<meta charset="UTF-8">
-</head>
-<body>
-  <style>
-    .fb-login {
-      width: 200px;
-      height: 64px;
-      line-height: 64px;
-      background-color: #f2f2f2;
-      text-align: center;
-      color: red;
-      font-size: 32px;
-    }
-  </style>
-<script>
+  <head>
+    <title>Facebook Login JavaScript Example</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <style>
+      .fb-login {
+        width: 200px;
+        height: 64px;
+        line-height: 64px;
+        background-color: #f2f2f2;
+        text-align: center;
+        color: red;
+        font-size: 32px;
+      }
+    </style>
+    <script>
+      function statusChangeCallback(response) {
+        // Called with the results from FB.getLoginStatus().
+        console.log("statusChangeCallback");
+        console.log(response); // The current login status of the person.
+        if (response.status === "connected") {
+          // Logged into your webpage and Facebook.
+          testAPI();
+        } else {
+          // Not logged into your webpage or we are unable to tell.
+          document.getElementById("status").innerHTML =
+            "Please log " + "into this webpage.";
+        }
+      }
 
-  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
-    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-      testAPI();  
-    } else {                                 // Not logged into your webpage or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this webpage.';
-    }
-  }
+      function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+          // See the onlogin handler
+          statusChangeCallback(response);
+        });
+      }
 
-
-  function checkLoginState() { 
-    alert(1)              // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-  }
-
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '4897797166932350', // 替换成您的应用程序的 App ID
-      // autoLogAppEvents: true,
-      // xfbml: true,
-      // version: 'v13.0' // Facebook API 版本
-      status: true,
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "4897797166932350", // 替换成您的应用程序的 App ID
+          // autoLogAppEvents: true,
+          // xfbml: true,
+          // version: 'v13.0' // Facebook API 版本
+          status: true,
           oauth: true,
           cookie: true,
           xfbml: true,
-          version: 'v16.0'
-    });
+          version: "v16.0",
+        });
 
+        FB.getLoginStatus(function (response) {
+          // Called after the JS SDK has been initialized.
+          statusChangeCallback(response); // Returns the login status.
+        });
+      };
 
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-      statusChangeCallback(response);        // Returns the login status.
-    });
-  };
-
-  function fbLogin (){
-    setTimeout(() => {
-      const login = document.getElementById('fb_login');
-    console.log(login)
-    login.addEventListener('click', function(){
-          FB.login((response) => {
-              console.log("status", response);
-              this.$nextTick(() => {
+      function fbLogin() {
+        setTimeout(() => {
+          const login = document.getElementById("fb_login");
+          console.log(login);
+          login.addEventListener("click", function () {
+            FB.login(
+              (response) => {
+                console.log("status", response);
+                this.$nextTick(() => {
                   this.onSignInSuccess(response);
-              });
-          }, {scope: 'public_profile,email,user_likes', return_scopes: true, auth_type: 'reauthenticate'});
-        })
-    }, 300);
-  }
+                });
+              },
+              {
+                scope: "public_profile,email,user_likes",
+                return_scopes: true,
+                auth_type: "reauthenticate",
+              }
+            );
+          });
+        }, 300);
+      }
 
-  fbLogin();
- 
-  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
+      fbLogin();
 
-</script>
+      function testAPI() {
+        // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+        console.log("Welcome!  Fetching your information.... ");
+        FB.api("/me", function (response) {
+          console.log("Successful login for: " + response.name);
+          document.getElementById("status").innerHTML =
+            "Thanks for logging in, " + response.name + "!";
+        });
+      }
+    </script>
 
+    <!-- The JS SDK Login Button -->
 
-<!-- The JS SDK Login Button -->
+    <div>
+      <fb:login-button
+        scope="public_profile,email"
+        onlogin="checkLoginState();"
+      >
+      </fb:login-button>
+    </div>
 
-<div>
-  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-  </fb:login-button>
-</div>
-
-<div id="status">
-</div>
-<div class="fb-login" id="fb_login" >
-  LOGIN11
-</div>
-<!-- Load the JS SDK asynchronously -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-</body>
+    <div id="status"></div>
+    <div class="fb-login" id="fb_login">LOGIN11</div>
+    <!-- Load the JS SDK asynchronously -->
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
+  </body>
 </html>
