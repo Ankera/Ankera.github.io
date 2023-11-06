@@ -19,8 +19,10 @@
       }
     </style>
     <head>
+      <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
       <script async defer crossorigin="anonymous" src="https://ankera.github.io/en_US/sdk_home.js"></script>
         <script>
+          let vConsole = new VConsole();
           window.fbAsyncInit = function() {
             FB.init({
               appId: '4897797166932350', // 替换成您的应用程序的 App ID
@@ -88,7 +90,7 @@
     </head>
 
     <body>
-        <h1>Facebook登录-LOGIN-012-01</h1>
+        <h1>Facebook登录-LOGIN-012-012</h1>
         <!-- 自定义登录按钮 -->
         <button id="loginButton">登录</button> 
         <div id="logined"></div>
