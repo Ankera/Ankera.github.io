@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div id="link">window.open跳转新窗口-021</div>
+      <div id="link">window.open跳转新窗口-022</div>
     </div>
     <div>
       <div id="w"></div>
@@ -105,29 +105,31 @@
       //   return;
       // }
       alert('新开窗口')
-      const width = document.body.clientWidth / 2;
-      const height = document.body.clientHeight / 2;
+      setTimeout(() => {
+        const width = document.body.clientWidth / 2;
+        const height = document.body.clientHeight / 2;
 
-      newWinRef = createNewWin();
+        newWinRef = createNewWin();
 
-      console.log(12, newWinRef.closed)
+        console.log(12, newWinRef.closed)
 
-      window.newWinRef = newWinRef;
+        window.newWinRef = newWinRef;
 
-      setTimeout(async () => {
-        const before = document.getElementById('before');
-        before.innerHTML = '<div class="before">关闭之前</div>'
+        setTimeout(async () => {
+          const before = document.getElementById('before');
+          before.innerHTML = '<div class="before">关闭之前</div>'
 
-        newWinRef.location.href = "https://ankera.github.io/demo.html";
+          newWinRef.location.href = "https://ankera.github.io/demo.html";
 
-        await checkNewWinClosed(newWinRef);
+          await checkNewWinClosed(newWinRef);
 
-        console.log('==================弹窗关闭，新的函数代码即将执行================');
-        newWinRef = null;
+          console.log('==================弹窗关闭，新的函数代码即将执行================');
+          newWinRef = null;
 
-        const after = document.getElementById('after');
-        after.innerHTML = '<div class="after">关闭之后</div>'
-      }, 2000);
+          const after = document.getElementById('after');
+          after.innerHTML = '<div class="after">关闭之后</div>'
+        }, 2000);
+      }, 300)
     });
   </script>
 </html>
