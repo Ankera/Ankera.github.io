@@ -1,17 +1,66 @@
 <html>
+    <title>facebook</title>
+    <style>
+      button {
+        display: block;
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        font-size: 32px;
+        color: aqua;
+      }
+    </style>
     <head>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=746492673568696&autoLogAppEvents=1"></script>
+      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
         <script>
-            function login() {
-                FB.login(function(response){
-                    console.log(response);
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId: '4897797166932350', // 替换成您的应用程序的 App ID
+              autoLogAppEvents: true,
+              xfbml: true,
+              version: 'v13.0' // Facebook API 版本
+            });
+        
+            // 处理登录状态
+            FB.getLoginStatus(function(response) {
+              if (response.status === 'connected') {
+                // 用户已经登录
+                console.log('已登录');
+              } else {
+                // 用户未登录
+                document.getElementById('loginButton').addEventListener('click', function() {
+                  FB.login(function(response) {
+                    if (response.status === 'connected') {
+                      // 用户已登录，可以访问 response.authResponse.accessToken 获取访问令牌
+                      console.log('已登录');
+                      console.log('访问令牌: ' + response.authResponse.accessToken);
+                    } else {
+                      // 用户取消登录或未授权
+                      console.log('登录失败');
+                    }
+                  });
                 });
+              }
+            });
+          };
+        
+          // 异步加载 Facebook SDK
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+              return;
             }
-        </script>
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        </script>        
     </head>
+
     <body>
-        <h1>Facebook登录</h1>
+        <h1>Facebook登录-LOGIN</h1>
         <!-- 自定义登录按钮 -->
-        <button id="loginBtn" onclick="login();" >登录</button> 
+        <button id="loginButton" onclick="login();" >登录</button> 
     </body>
 </html>
