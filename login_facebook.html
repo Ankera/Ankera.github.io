@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div id="link">window.open跳转新窗口-02123</div>
+      <div id="link">window.open跳转新窗口, open url</div>
     </div>
     <div>
       <div id="w"></div>
@@ -75,6 +75,7 @@
           reject();
           return;
         }
+        let i = 0;
 
         let tid = setInterval(() => {
           console.log("checkNewWinClosed 之前", winRef.closed);
@@ -82,6 +83,12 @@
           const span = document.createElement('span');
           span.innerHTML = '弹窗开启中、';
           open.appendChild(span);
+
+          i++;
+          if(i >= 6){
+            winRef.close();
+          }
+
           if (!winRef.closed) return; // 仍未关闭
 
           console.log("checkNewWinClosed 之后", winRef.closed);
@@ -100,7 +107,7 @@
       //   console.log('不能重复点击')
       //   return;
       // }
-      alert('新开窗口_重新赋值')
+      // alert('新开窗口_重新赋值')
       const width = document.body.clientWidth / 2;
       const height = document.body.clientHeight / 2;
 
@@ -123,6 +130,7 @@
 
         const after = document.getElementById('after');
         after.innerHTML = '<div class="after">关闭之后</div>'
+
       }, 2000);
     });
   </script>
