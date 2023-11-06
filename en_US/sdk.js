@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 try {
-  console.log('=====github====== sdk===8');
+  console.log('=====github====== sdk===89');
   (window.FB && !window.FB.__buffer) ||
     (function () {
       var apply = Function.prototype.apply;
@@ -9591,7 +9591,7 @@ try {
                         params: a.params,
                       }))
                   : (f = window.open(a.url, a.id, e));
-                console.log('===6666==', f)
+                console.log('===6666==', a, e, f)
                 if (
                   !f &&
                   c("sdk.feature")("popup_blocker_scribe_logging", !0)
