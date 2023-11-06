@@ -40,12 +40,16 @@
       <div id="link">window.open跳转新窗口</div>
     </div>
     <div>
+      <div id="w"></div>
       <div id="before"></div>
       <div id="open"></div>
       <div id="after"></div>
     </div>
   </body>
 
+  <!-- https://juejin.cn/post/7121965933605683207 -->
+  <!-- https://blog.csdn.net/huyuyang6688/article/details/105702749 -->
+  
   <script>
     const link = document.getElementById("link");
 
@@ -53,9 +57,11 @@
           width = document.body.clientWidth/2,
           height = document.body.clientHeight/2
       } = {}) => {
+          const w = document.getElementById('w');
+          w.innerHTML = `W=> ${width} : H =>${height}`;
           return window.open(url, 'createNewWin', `
-                  width=${width},
-                  height=${height},
+                  width=200,
+                  height=200,
                   toolbar=no, 
                   menubar=no, 
                   scrollbars=no, 
