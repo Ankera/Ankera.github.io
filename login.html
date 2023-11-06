@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=746492673568696&autoLogAppEvents=1"></script>
+        <script>
+            function login() {
+                FB.login(function(response){
+                    console.log(response);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Facebook登录</h1>
+        <!-- 自定义登录按钮 -->
+        <button id="loginBtn" onclick="login();" >登录</button> 
+    </body>
+</html>
