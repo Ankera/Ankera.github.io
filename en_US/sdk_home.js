@@ -79,7 +79,7 @@ console.log('=====github====== sdk_home')
   h = document.getElementsByTagName("script")[0];
   h.parentNode && h.parentNode.insertBefore(k, h);
 })(
-  "http://127.0.0.1:8080/en_US/sdk.js?hash=6d5c49acae64406ae4d3f9b85cbefe33",
+  "https://ankera.github.io//en_US/sdk.js?hash=6d5c49acae64406ae4d3f9b85cbefe33",
   1699239472,
   "FB",
   [
