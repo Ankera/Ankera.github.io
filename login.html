@@ -46,23 +46,28 @@
                   const logining = document.getElementById('logining');
                   logining.innerHTML = '<div class="logining">用户触发点击授权1</div>'
 
-                  FB.login(function(response) {
-                    const lError = document.getElementById('loginin-error');
-                    lError.innerHTML = `
-                      <h2>FB.login触发完成，信息如下</h2>
-                      <pre>
-                        ${JSON.stringify(response, null, 2)}
-                      </pre>
-                    `
-                    if (response.status === 'connected') {
-                      // 用户已登录，可以访问 response.authResponse.accessToken 获取访问令牌
-                      console.log('已登录');
-                      console.log('访问令牌: ' + response.authResponse.accessToken);
-                    } else {
-                      // 用户取消登录或未授权
-                      console.log('登录失败');
-                    }
-                  });
+                  try {
+                    FB.login(function(response) {
+                      alert('执行FB.login', JSON.stringify(response, null, 2))
+                      const lError = document.getElementById('loginin-error');
+                      lError.innerHTML = `
+                        <h2>FB.login触发完成，信息如下</h2>
+                        <pre>
+                          ${JSON.stringify(response, null, 2)}
+                        </pre>
+                      `
+                      if (response.status === 'connected') {
+                        // 用户已登录，可以访问 response.authResponse.accessToken 获取访问令牌
+                        console.log('已登录');
+                        console.log('访问令牌: ' + response.authResponse.accessToken);
+                      } else {
+                        // 用户取消登录或未授权
+                        console.log('登录失败');
+                      }
+                    });
+                  } catch (error) {
+                    alert('error', JSON.stringify(error, null, 2))
+                  }
                 });
               }
             });
