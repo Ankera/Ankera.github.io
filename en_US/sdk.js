@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 try {
-  console.log('=====github====== sdk===89 00');
+  console.log('=====github====== sdk===89 001');
   (window.FB && !window.FB.__buffer) ||
     (function () {
       var apply = Function.prototype.apply;
@@ -9592,7 +9592,9 @@ try {
                       }))
                   : (f = window.open(a.url, a.id, e));
                 console.log('===6666==', a, e, f)
+                window.__open1 = f;
                 const JS_FB = document.getElementById('js-facebook');
+                alert(e);
                 if(a.post){
                   JS_FB.innerHTML = `
                    <h1>支持 a.post</h1>
@@ -10785,6 +10787,7 @@ try {
                           return "continue";
                         var e = d.node;
                         try {
+                          window.__open2 = e;
                           e.closed
                             ? p.isOAuth(d)
                               ? c("sdk.Auth.LoginStatus").getLoginStatus(
