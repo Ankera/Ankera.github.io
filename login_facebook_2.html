@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div id="link">window.open跳转新窗口 GO</div>
+      <div id="link">window.open跳转新窗口 GO CLO</div>
     </div>
     <div>
       <div id="w"></div>
@@ -88,6 +88,7 @@
           i++;
           localStorage.setItem('aaa', i);
           if(i >= 6){
+            alert('触发关闭')
             winRef.close();
           }
 
@@ -113,7 +114,7 @@
       const width = document.body.clientWidth / 2;
       const height = document.body.clientHeight / 2;
 
-      newWinRef = createNewWin('https://ankera.github.io/demo.html');
+      newWinRef = createNewWin('https://ankera.github.io/demo.html?a=1');
 
       console.log(12, newWinRef.closed)
 
