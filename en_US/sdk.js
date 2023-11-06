@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 try {
-  console.log('=====github====== sdk');
+  console.log('=====github====== sdk===8');
   (window.FB && !window.FB.__buffer) ||
     (function () {
       var apply = Function.prototype.apply;
@@ -9581,6 +9581,7 @@ try {
                     isOAuth: b,
                   }),
                   f;
+                console.log('===999==', a.post)
                 a.post
                   ? ((f = window.open("about:blank", a.id, e)),
                     f &&
@@ -9590,6 +9591,7 @@ try {
                         params: a.params,
                       }))
                   : (f = window.open(a.url, a.id, e));
+                console.log('===6666==', f)
                 if (
                   !f &&
                   c("sdk.feature")("popup_blocker_scribe_logging", !0)
