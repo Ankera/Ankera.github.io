@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>facebook-login</title>
+    <style>
+      button {
+        width: 200px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="facebook">登陆</button>
+    <button id="signout">退出</button>
+  </body>
+  <script>
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: "4897797166932350",
+        cookie: true, // 启用cookie
+        xfbml: true, // 解析此页面上的社交插件
+        version: "v18.0", // 使用图形api 2.8版本
+      });
+
+      FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+        // console.log(response,"首次检测未登陆")
+      });
+
+      document.getElementById("facebook").onclick = function () {
+        //登录
+        FB.login(
+          function (response) {
+            if (response.status === "connected") {
+              $("#facebook").css("display", "none");
+              $("#fbLike").css("display", "block");
+              FB.api("/me", function (response) {
+                roleName = encodeURIComponent(response.name);
+                FB.getLoginStatus(function (response) {
+                  statusChangeCallback(response);
+                });
+              });
+            } else {
+              console.log("该用户没有登录成功", response);
+              alert(JSON.stringify(response, null, 2))
+            }
+          },
+          { scope: "public_profile,email" }
+        );
+      };
+      document.getElementById("signout").onclick = function () {
+        FB.logout(function (response) {
+          console.log(response, "用户退出");
+        });
+      };
+    };
+  </script>
+</html>
