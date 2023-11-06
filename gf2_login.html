@@ -1,72 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>facebook-login</title>
-    <style>
-      button {
-        width: 200px;
-        height: 64px;
-        line-height: 64px;
-        text-align: center;
-      }
-    </style>
+    <title>Facebook Login Example</title>
   </head>
   <body>
-    <button id="facebook">登陆</button>
-    <button id="signout">退出</button>
-  </body>
-  <script>
-    (function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
+    <div id="fb-root"></div>
 
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: "4897797166932350",
-        cookie: true, // 启用cookie
-        xfbml: true, // 解析此页面上的社交插件
-        version: "v18.0", // 使用图形api 2.8版本
-      });
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "306718738913166",
+          cookie: true,
+          xfbml: true,
+          version: "v18.0",
+        });
 
-      FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-        // console.log(response,"首次检测未登陆")
-      });
+        // 在这里可以添加其他初始化逻辑
 
-      document.getElementById("facebook").onclick = function () {
-        //登录
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+    </script>
+
+    <!-- 创建一个登录按钮 -->
+    <button onclick="facebookLogin()">Facebook登录</button>
+
+    <script>
+      function facebookLogin() {
         FB.login(
           function (response) {
-            if (response.status === "connected") {
-              $("#facebook").css("display", "none");
-              $("#fbLike").css("display", "block");
-              FB.api("/me", function (response) {
-                roleName = encodeURIComponent(response.name);
-                FB.getLoginStatus(function (response) {
-                  statusChangeCallback(response);
-                });
-              });
+            alert(JSON.stringify(response, null, 2))
+            if (response.authResponse) {
+              // 用户已登录，可以使用 response.authResponse.accessToken 获取访问令牌
+              var accessToken = response.authResponse.accessToken;
+              // 发送访问令牌到后端以进行验证和用户处理
             } else {
-              console.log("该用户没有登录成功", response);
-              alert(JSON.stringify(response, null, 2))
+              // 用户取消登录或发生错误
+              console.log("登录失败");
             }
           },
           { scope: "public_profile,email" }
-        );
-      };
-      document.getElementById("signout").onclick = function () {
-        FB.logout(function (response) {
-          console.log(response, "用户退出");
-        });
-      };
-    };
-  </script>
+        ); // 请求的权限范围
+      }
+    </script>
+  </body>
 </html>
