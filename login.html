@@ -9,6 +9,10 @@
         font-size: 32px;
         color: aqua;
       }
+      .fbUnLogin {
+        font-size: 32px;
+        color: red;
+      }
     </style>
     <head>
       <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
@@ -26,7 +30,12 @@
               if (response.status === 'connected') {
                 // 用户已经登录
                 console.log('已登录');
+                const logined = document.getElementById('logined');
+                logined.innerHTML = '<div>用户已经登录</div>'
               } else {
+                
+                const fbUnLogin = document.getElementById('fbUnLogin');
+                fbUnLogin.innerHTML = '<div class="fbUnLogin">用户未登录</div>'
                 // 用户未登录
                 document.getElementById('loginButton').addEventListener('click', function() {
                   FB.login(function(response) {
@@ -62,5 +71,7 @@
         <h1>Facebook登录-LOGIN</h1>
         <!-- 自定义登录按钮 -->
         <button id="loginButton" onclick="login();" >登录</button> 
+        <div id="logined"></div>
+        <div id="fbUnLogin"></div>
     </body>
 </html>
