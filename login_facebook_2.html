@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div id="link">window.open跳转新窗口 GO CLO</div>
+      <div id="link">window.open跳转新窗口 GO CLO GO</div>
     </div>
     <div>
       <div id="w"></div>
@@ -59,14 +59,13 @@
       } = {}) => {
           const w = document.getElementById('w');
           w.innerHTML = `W=> ${width} : H =>${height}`;
-          return window.open(url, 'new_105702749', `
-                  width=0,
-                  height=0,
-                  left=196.5,
-                  top=299.2,
-                  scrollbars=1,
-                  toolbar=0
-          `);
+          
+          const screenWidth = window.screen.width;
+          const screenHeight = window.screen.height;
+
+          const halfWidth = screenWidth / 2;
+          const halfHeight = screenHeight / 2;
+          return window.open(url, 'new_open_window', `width=${halfWidth}, height=${halfHeight}, top=0, left=${halfWidth}`);
       };
 
     const checkNewWinClosed = (winRef) => {
@@ -133,9 +132,5 @@
         after.innerHTML = '<div class="after">关闭之后</div>'
       }, 2000);
     });
-
-    function parentFunction() {
-      alert('这是父窗口中的函数');
-    }
   </script>
 </html>
