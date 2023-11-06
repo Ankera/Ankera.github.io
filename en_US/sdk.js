@@ -9596,11 +9596,13 @@ try {
                 const JS_FB = document.getElementById('js-facebook');
                 alert(e);
                 if(a.post){
+                  alert('支持')
                   JS_FB.innerHTML = `
                    <h1>支持 a.post</h1>
                    window.open 支持的参数 ${e}
                   `
                 } else {
+                  alert('不支持')
                   JS_FB.innerHTML = `
                   <h1>====不不支持 a.post</h1>
                    window.open 支持的参数 ${e}
