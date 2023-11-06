@@ -86,6 +86,7 @@
           open.appendChild(span);
 
           i++;
+          localStorage.setItem('aaa', i);
           if(i >= 6){
             winRef.close();
           }
@@ -131,5 +132,9 @@
         after.innerHTML = '<div class="after">关闭之后</div>'
       }, 2000);
     });
+
+    function parentFunction() {
+      alert('这是父窗口中的函数');
+    }
   </script>
 </html>
