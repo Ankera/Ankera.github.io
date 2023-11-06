@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div id="link">window.open跳转新窗口-02</div>
+      <div id="link">window.open跳转新窗口-021</div>
     </div>
     <div>
       <div id="w"></div>
@@ -100,10 +100,11 @@
     let newWinRef = null;
 
     link.addEventListener("click", function () {
-      if(newWinRef){
-        console.log('不能重复点击')
-        return;
-      }
+      // if(newWinRef){
+      //   console.log('不能重复点击')
+      //   return;
+      // }
+      alert('新开窗口')
       const width = document.body.clientWidth / 2;
       const height = document.body.clientHeight / 2;
 
