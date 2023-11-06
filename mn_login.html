@@ -20,7 +20,7 @@
     </style>
     <head>
       <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
-      <script async defer crossorigin="anonymous" src="https://ankera.github.io/en_US/sdk_home.js"></script>
+      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
         <script>
           let vConsole = new VConsole();
           window.fbAsyncInit = function() {
@@ -84,7 +84,8 @@
             }
             js = d.createElement(s);
             js.id = id;
-            js.src = "https://ankera.github.io/en_US/sdk.js?hash=111233";
+            // js.src = "https://ankera.github.io/en_US/sdk.js?hash=111233";
+            js.src="https://connect.facebook.net/en_US/sdk.js"
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));
         </script>        
