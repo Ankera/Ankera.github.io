@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 try {
-  console.log('=====github====== sdk')
+  console.log('=====github====== sdk');
   (window.FB && !window.FB.__buffer) ||
     (function () {
       var apply = Function.prototype.apply;

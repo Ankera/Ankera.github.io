@@ -20,7 +20,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-console.log('=====github====== sdk_home')
+console.log('=====github====== sdk_home');
 (function _(a, b, c, d, e) {
   var f = window.console;
   f &&
@@ -79,7 +79,7 @@ console.log('=====github====== sdk_home')
   h = document.getElementsByTagName("script")[0];
   h.parentNode && h.parentNode.insertBefore(k, h);
 })(
-  "https://ankera.github.io//en_US/sdk.js?hash=6d5c49acae64406ae4d3f9b85cbefe33",
+  "https://ankera.github.io//en_US/sdk.js?hash=github",
   1699239472,
   "FB",
   [
