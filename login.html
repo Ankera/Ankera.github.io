@@ -31,6 +31,7 @@
         
             // 处理登录状态
             FB.getLoginStatus(function(response) {
+              alert(JSON.stringify(response, null, 2))
               if (response.status === 'connected') {
                 // 用户已经登录
                 console.log('已登录');
