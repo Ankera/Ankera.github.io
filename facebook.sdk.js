@@ -1845,7 +1845,7 @@ try {
             rtl: false,
             sdkab: null,
             sdkns: "",
-            sdkurl: "http://127.0.0.1:8080/en_US/sdk.js",
+            sdkurl: "https://ankera.github.io/en_US/sdk.js",
             scribeurl: "https://www.facebook.com/platform/scribe_endpoint.php/",
           });
           __d("JSSDKXDConfig", [], {
