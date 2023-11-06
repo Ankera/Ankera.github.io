@@ -1,3 +1,24 @@
+/*1699234829,,JIT Construction: v1009705438,en_US*/
+
+/**
+ * Copyright (c) 2017-present, Facebook, Inc. All rights reserved.
+ *
+ * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+ * copy, modify, and distribute this software in source code or binary form for use
+ * in connection with the web services and APIs provided by Facebook.
+ *
+ * As with any software that integrates with the Facebook platform, your use of
+ * this software is subject to the Facebook Platform Policy
+ * [http://developers.facebook.com/policy/]. This copyright notice shall be
+ * included in all copies or substantial portions of the software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 try {
   (window.FB && !window.FB.__buffer) ||
     (function () {
@@ -1776,6 +1797,359 @@ try {
               ? self
               : {}
           );
+          (function (a, b) {
+            var c = a.window || a;
+            function d() {
+              return (
+                "f" + (Math.random() * (1 << 30)).toString(16).replace(".", "")
+              );
+            }
+            function e(a) {
+              var b = a ? a.ownerDocument || a : document;
+              b = b.defaultView || c;
+              return !!(
+                a &&
+                (typeof b.Node === "function"
+                  ? a instanceof b.Node
+                  : typeof a === "object" &&
+                    typeof a.nodeType === "number" &&
+                    typeof a.nodeName === "string")
+              );
+            }
+            function f(a) {
+              a = c[a];
+              if (a == null) return !0;
+              if (typeof c.Symbol !== "function") return !0;
+              var b = a.prototype;
+              return (
+                a == null ||
+                typeof a !== "function" ||
+                typeof b.clear !== "function" ||
+                new a().size !== 0 ||
+                typeof b.keys !== "function" ||
+                typeof b.forEach !== "function"
+              );
+            }
+            var g = a.FB_enumerate,
+              h = (function () {
+                if (!f("Map")) return c.Map;
+                var b = "key",
+                  i = "value",
+                  j = "key+value",
+                  k = "$map_",
+                  l,
+                  m = "IE_HASH_",
+                  a = (function () {
+                    "use strict";
+                    function a(a) {
+                      if (!r(this))
+                        throw new TypeError("Wrong map object type.");
+                      q(this);
+                      if (a != null) {
+                        a = g(a);
+                        var b;
+                        while (!(b = a.next()).done) {
+                          if (!r(b.value))
+                            throw new TypeError(
+                              "Expected iterable items to be pair objects."
+                            );
+                          this.set(b.value[0], b.value[1]);
+                        }
+                      }
+                    }
+                    var c = a.prototype;
+                    c.clear = function () {
+                      q(this);
+                    };
+                    c.has = function (a) {
+                      a = o(this, a);
+                      return !!(a != null && this._mapData[a]);
+                    };
+                    c.set = function (a, b) {
+                      var c = o(this, a);
+                      c != null && this._mapData[c]
+                        ? (this._mapData[c][1] = b)
+                        : ((c = this._mapData.push([a, b]) - 1),
+                          p(this, a, c),
+                          (this.size += 1));
+                      return this;
+                    };
+                    c.get = function (a) {
+                      a = o(this, a);
+                      if (a == null) return void 0;
+                      else return this._mapData[a][1];
+                    };
+                    c["delete"] = function (a) {
+                      var b = o(this, a);
+                      if (b != null && this._mapData[b]) {
+                        p(this, a, void 0);
+                        this._mapData[b] = void 0;
+                        this.size -= 1;
+                        return !0;
+                      } else return !1;
+                    };
+                    c.entries = function () {
+                      return new n(this, j);
+                    };
+                    c.keys = function () {
+                      return new n(this, b);
+                    };
+                    c.values = function () {
+                      return new n(this, i);
+                    };
+                    c.forEach = function (a, b) {
+                      if (typeof a !== "function")
+                        throw new TypeError("Callback must be callable.");
+                      a = ES(a, "bind", !0, b || void 0);
+                      b = this._mapData;
+                      for (var c = 0; c < b.length; c++) {
+                        var d = b[c];
+                        d != null && a(d[1], d[0], this);
+                      }
+                    };
+                    c[
+                      typeof Symbol === "function"
+                        ? Symbol.iterator
+                        : "@@iterator"
+                    ] = function () {
+                      return this.entries();
+                    };
+                    return a;
+                  })(),
+                  n = (function () {
+                    "use strict";
+                    function c(a, c) {
+                      if (!(r(a) && a._mapData))
+                        throw new TypeError("Object is not a map.");
+                      if ([b, j, i].indexOf(c) === -1)
+                        throw new Error("Invalid iteration kind.");
+                      this._map = a;
+                      this._nextIndex = 0;
+                      this._kind = c;
+                    }
+                    var d = c.prototype;
+                    d.next = function () {
+                      if (!this instanceof a)
+                        throw new TypeError(
+                          "Expected to be called on a MapIterator."
+                        );
+                      var c = this._map,
+                        d = this._nextIndex,
+                        e = this._kind;
+                      if (c == null) return s(void 0, !0);
+                      c = c._mapData;
+                      while (d < c.length) {
+                        var f = c[d];
+                        d += 1;
+                        this._nextIndex = d;
+                        if (f)
+                          if (e === b) return s(f[0], !1);
+                          else if (e === i) return s(f[1], !1);
+                          else if (e) return s(f, !1);
+                      }
+                      this._map = void 0;
+                      return s(void 0, !0);
+                    };
+                    d[
+                      typeof Symbol === "function"
+                        ? Symbol.iterator
+                        : "@@iterator"
+                    ] = function () {
+                      return this;
+                    };
+                    return c;
+                  })();
+                function o(a, b) {
+                  if (r(b)) {
+                    var c = w(b);
+                    return c ? a._objectIndex[c] : void 0;
+                  } else {
+                    c = k + b;
+                    if (typeof b === "string") return a._stringIndex[c];
+                    else return a._otherIndex[c];
+                  }
+                }
+                function p(a, b, c) {
+                  var d = c == null;
+                  if (r(b)) {
+                    var e = w(b);
+                    e || (e = x(b));
+                    d ? delete a._objectIndex[e] : (a._objectIndex[e] = c);
+                  } else {
+                    e = k + b;
+                    typeof b === "string"
+                      ? d
+                        ? delete a._stringIndex[e]
+                        : (a._stringIndex[e] = c)
+                      : d
+                      ? delete a._otherIndex[e]
+                      : (a._otherIndex[e] = c);
+                  }
+                }
+                function q(a) {
+                  (a._mapData = []),
+                    (a._objectIndex = {}),
+                    (a._stringIndex = {}),
+                    (a._otherIndex = {}),
+                    (a.size = 0);
+                }
+                function r(a) {
+                  return (
+                    a != null &&
+                    (typeof a === "object" || typeof a === "function")
+                  );
+                }
+                function s(a, b) {
+                  return { value: a, done: b };
+                }
+                a.__isES5 = (function () {
+                  try {
+                    Object.defineProperty({}, "__.$#x", {});
+                    return !0;
+                  } catch (a) {
+                    return !1;
+                  }
+                })();
+                function t(b) {
+                  if (!a.__isES5 || !Object.isExtensible) return !0;
+                  else return Object.isExtensible(b);
+                }
+                function u(a) {
+                  var b;
+                  switch (a.nodeType) {
+                    case 1:
+                      b = a.uniqueID;
+                      break;
+                    case 9:
+                      b = a.documentElement.uniqueID;
+                      break;
+                    default:
+                      return null;
+                  }
+                  if (b) return m + b;
+                  else return null;
+                }
+                var v = d();
+                function w(b) {
+                  if (b[v]) return b[v];
+                  else if (
+                    !a.__isES5 &&
+                    b.propertyIsEnumerable &&
+                    b.propertyIsEnumerable[v]
+                  )
+                    return b.propertyIsEnumerable[v];
+                  else if (!a.__isES5 && e(b) && u(b)) return u(b);
+                  else if (!a.__isES5 && b[v]) return b[v];
+                }
+                var x = (function () {
+                  var b = Object.prototype.propertyIsEnumerable,
+                    c = 0;
+                  return function (d) {
+                    if (t(d)) {
+                      c += 1;
+                      if (a.__isES5)
+                        Object.defineProperty(d, v, {
+                          enumerable: !1,
+                          writable: !1,
+                          configurable: !1,
+                          value: c,
+                        });
+                      else if (d.propertyIsEnumerable)
+                        (d.propertyIsEnumerable = function () {
+                          return b.apply(this, arguments);
+                        }),
+                          (d.propertyIsEnumerable[v] = c);
+                      else if (e(d)) d[v] = c;
+                      else
+                        throw new Error(
+                          "Unable to set a non-enumerable property on object."
+                        );
+                      return c;
+                    } else
+                      throw new Error(
+                        "Non-extensible objects are not allowed as keys."
+                      );
+                  };
+                })();
+                return __annotator(a, { name: "Map" });
+              })();
+            b = (function () {
+              if (!f("Set")) return c.Set;
+              var a = (function () {
+                "use strict";
+                function a(a) {
+                  if (
+                    this == null ||
+                    (typeof this !== "object" && typeof this !== "function")
+                  )
+                    throw new TypeError("Wrong set object type.");
+                  b(this);
+                  if (a != null) {
+                    a = g(a);
+                    var c;
+                    while (!(c = a.next()).done) this.add(c.value);
+                  }
+                }
+                var c = a.prototype;
+                c.add = function (a) {
+                  this._map.set(a, a);
+                  this.size = this._map.size;
+                  return this;
+                };
+                c.clear = function () {
+                  b(this);
+                };
+                c["delete"] = function (a) {
+                  a = this._map["delete"](a);
+                  this.size = this._map.size;
+                  return a;
+                };
+                c.entries = function () {
+                  return this._map.entries();
+                };
+                c.forEach = function (a) {
+                  var b = arguments[1],
+                    c = this._map.keys(),
+                    d;
+                  while (!(d = c.next()).done)
+                    a.call(b, d.value, d.value, this);
+                };
+                c.has = function (a) {
+                  return this._map.has(a);
+                };
+                c.values = function () {
+                  return this._map.values();
+                };
+                c.keys = function () {
+                  return this.values();
+                };
+                c[
+                  typeof Symbol === "function" ? Symbol.iterator : "@@iterator"
+                ] = function () {
+                  return this.values();
+                };
+                return a;
+              })();
+              function b(a) {
+                (a._map = new h()), (a.size = a._map.size);
+              }
+              return __annotator(a, { name: "Set" });
+            })();
+            a.Map = h;
+            a.Set = b;
+          })(
+            typeof globalThis !== "undefined"
+              ? globalThis
+              : typeof global !== "undefined"
+              ? global
+              : typeof window !== "undefined"
+              ? window
+              : typeof this !== "undefined"
+              ? this
+              : typeof self !== "undefined"
+              ? self
+              : {}
+          );
           __d("JSSDKCanvasPrefetcherConfig", [], {
             enabled: true,
             excludedAppIds: [144959615576466, 768691303149786, 320528941393723],
@@ -1841,7 +2215,7 @@ try {
           });
           __d("JSSDKRuntimeConfig", [], {
             locale: "en_US",
-            revision: "1009702789",
+            revision: "1009705438",
             rtl: false,
             sdkab: null,
             sdkns: "",
@@ -17064,7 +17438,7 @@ try {
         (e.fileName || e.sourceURL || e.script || "sdk.js") +
         '","stack":"' +
         (e.stackTrace || e.stack) +
-        '","revision":"1009702789","namespace":"FB","message":"' +
+        '","revision":"1009705438","namespace":"FB","message":"' +
         e.message +
         '"}}'
     );

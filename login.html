@@ -13,9 +13,13 @@
         font-size: 32px;
         color: red;
       }
+      .logining {
+        font-size: 32px;
+        color: blue;
+      }
     </style>
     <head>
-      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+      <script async defer crossorigin="anonymous" src="http://127.0.0.1:8080/en_US/sdk_home.js"></script>
         <script>
           window.fbAsyncInit = function() {
             FB.init({
@@ -38,7 +42,17 @@
                 fbUnLogin.innerHTML = '<div class="fbUnLogin">用户未登录</div>'
                 // 用户未登录
                 document.getElementById('loginButton').addEventListener('click', function() {
+                  const logining = document.getElementById('logining');
+                  logining.innerHTML = '<div class="logining">用户触发点击授权1</div>'
+
                   FB.login(function(response) {
+                    const lError = document.getElementById('loginin-error');
+                    lError.innerHTML = `
+                      <h2>FB.login触发完成，信息如下</h2>
+                      <pre>
+                        ${JSON.stringify(response, null, 2)}
+                      </pre>
+                    `
                     if (response.status === 'connected') {
                       // 用户已登录，可以访问 response.authResponse.accessToken 获取访问令牌
                       console.log('已登录');
@@ -61,17 +75,19 @@
             }
             js = d.createElement(s);
             js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            js.src = "http://127.0.0.1:8080/en_US/sdk.js?hash=6d5c49acae64406ae4d3f9b85cbefe33";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));
         </script>        
     </head>
 
     <body>
-        <h1>Facebook登录-LOGIN</h1>
+        <h1>Facebook登录-LOGIN-01</h1>
         <!-- 自定义登录按钮 -->
-        <button id="loginButton" onclick="login();" >登录</button> 
+        <button id="loginButton">登录</button> 
         <div id="logined"></div>
         <div id="fbUnLogin"></div>
+        <div id="logining"></div>
+        <div id="loginin-error"></div>
     </body>
 </html>
