@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>这是vevor的中间页地址</h1>
+  <div>调用doLogin接口中...</div>
+</body>
+<script>
+  setTimeout(() => {
+    let obj = new URL(window.location.href);
+    code = obj.searchParams.get('code')
+    var str = Math.random().toString(36).slice(-10);
+    window.location.href = '/vevor.html?token=' + str + '&code=' + code;
+  }, 2000);
+</script>
+</html>

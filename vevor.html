@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      font-size: 64px;
+    }
+  </style>
+</head>
+<body>
+  <h1>这是Vevor官方网站</h1>
+  <button id="btn">登录</button>
+  <button id="refresh">刷新</button>
+  <h1 id="code"> </h1>
+  <h1 id="token">  </h1>
+</body>
+<script>
+  const btn = document.getElementById('btn')
+  const refresh = document.getElementById('refresh')
+
+  btn.addEventListener('click', function () {
+    window.location.href = '/facebook.sdk.html';
+  })
+
+  refresh.addEventListener('click', function() {
+    window.location.href = '/vevor.html';
+  })
+
+  let obj = new URL(window.location.href);
+  let codeDOM = document.getElementById('code')
+  let takenDOM = document.getElementById('token')
+  codeDOM.innerHTML = "CODE = " + obj.searchParams.get('code')
+  takenDOM.innerHTML = "TOKEN = " + obj.searchParams.get('token')
+</script>
+</html>
