@@ -10,6 +10,7 @@
   <div>授权登录中...</div>
 </body>
 <script>
+  alert(navigator.userAgent)
 setTimeout(() => {
   var str = Math.random().toString(36).slice(-10);
   window.location.href = '/faceback.callback.html?code='+str;
