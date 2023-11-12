@@ -65,9 +65,7 @@
             FB.login(
               (response) => {
                 console.log("status", response);
-                this.$nextTick(() => {
-                  this.onSignInSuccess(response);
-                });
+                alert(JSON.stringify(response, null, 2))
               },
               {
                 scope: "public_profile,email,user_likes",
