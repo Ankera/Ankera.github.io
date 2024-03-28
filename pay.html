@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script src="https://unpkg.com/@paypal/paypal-js@8.0.0/dist/iife/paypal-js.min.js"></script>
+    </head>
+    <body>
+        <div id="paypal-buttons"></div>
+        <script>
+            window.paypalLoadScript({ clientId: "test" }).then((paypal) => {
+                paypal.Buttons().render("#paypal-buttons");
+            });
+        </script>
+    </body>
+</html>

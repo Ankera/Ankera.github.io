@@ -2,134 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
-      .wrap {
-        width: 100%;
-        height: 50vh;
-        margin: 0 auto;
-        font-size: 32px;
-        background-color: #cccccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #link {
-        background-color: aquamarine;
-      }
-      .before {
-        font-size: 32px;
-        color: blueviolet;
-        margin-bottom: 12px;
-      }
-      .after {
-        font-size: 32px;
-        color: crimson;
-        margin-top: 12px;
-      }
-    </style>
+    <title>GTM</title>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5NH8BXRL");
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
+
   <body>
-    <div class="wrap">
-      <div id="link">window.open跳转新窗口-022</div>
-    </div>
-    <div>
-      <div id="w"></div>
-      <div id="before"></div>
-      <div id="open"></div>
-      <div id="after"></div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5NH8BXRL"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="GTM">
+      <h1>GTM</h1>
     </div>
   </body>
-
-  <!-- https://juejin.cn/post/7121965933605683207 -->
-  <!-- https://blog.csdn.net/huyuyang6688/article/details/105702749 -->
-  
-  <script>
-    const link = document.getElementById("link");
-
-    const createNewWin = (url = '', {
-          width = document.body.clientWidth/2,
-          height = document.body.clientHeight/2
-      } = {}) => {
-          const w = document.getElementById('w');
-          w.innerHTML = `W=> ${width} : H =>${height}`;
-          return window.open(url, 'createNewWin', `
-                  width=200,
-                  height=200,
-                  toolbar=no, 
-                  menubar=no, 
-                  scrollbars=no, 
-                  resizable=no, 
-                  location=no, 
-                  status=no, 
-                  titlebar=yes, 
-                  alwaysRaised=yes
-          `);
-      };
-
-    const checkNewWinClosed = (winRef) => {
-      return new Promise((resolve, reject) => {
-        if (!winRef) {
-          reject();
-          return;
-        }
-
-        let tid = setInterval(() => {
-          console.log("checkNewWinClosed 之前", winRef.closed);
-          const open = document.getElementById('open');
-          const span = document.createElement('span');
-          span.innerHTML = '弹窗开启中、';
-          open.appendChild(span);
-          if (!winRef.closed) return; // 仍未关闭
-
-          console.log("checkNewWinClosed 之后", winRef.closed);
-          // 新窗口被关闭
-          clearInterval(tid);
-          tid = null;
-          resolve();
-        }, 1000);
-      });
-    };
-
-    let newWinRef = null;
-
-    link.addEventListener("click", function () {
-      // if(newWinRef){
-      //   console.log('不能重复点击')
-      //   return;
-      // }
-      alert('新开窗口')
-      setTimeout(() => {
-        const width = document.body.clientWidth / 2;
-        const height = document.body.clientHeight / 2;
-
-        newWinRef = createNewWin();
-
-        console.log(12, newWinRef.closed)
-
-        window.newWinRef = newWinRef;
-
-        setTimeout(async () => {
-          const before = document.getElementById('before');
-          before.innerHTML = '<div class="before">关闭之前</div>'
-
-          newWinRef.location.href = "https://ankera.github.io/demo.html";
-
-          await checkNewWinClosed(newWinRef);
-
-          console.log('==================弹窗关闭，新的函数代码即将执行================');
-          newWinRef = null;
-
-          const after = document.getElementById('after');
-          after.innerHTML = '<div class="after">关闭之后</div>'
-        }, 2000);
-      }, 300)
-    });
-  </script>
 </html>
