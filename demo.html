@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>下单成功页面</title>
 </head>
 <body>
-  模拟facebook授权登录页面22
-  <div id="aa"></div>
+  <h1>下单成功页面==下单成功页面</h1>
+  <div id="username"></div>
+  <div id="tel"></div>
 </body>
 <script>
-  // window.opener.parentFunction();
-  // console.log(window.opener)
+   const username = document.getElementById('username')
+    const tel = document.getElementById('tel')
+
+    username.innerHTML = localStorage.getItem('key_username');
+    tel.innerHTML = localStorage.getItem('key_tel');
 </script>
 </html>
 

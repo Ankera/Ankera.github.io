@@ -34,6 +34,54 @@
 
     <div class="GTM">
       <h1>GTM</h1>
+      <div>
+        <input type="text" name="username" id="username" />
+        <br />
+        <input type="tel" name="tel" id="tel" />
+        <br />
+        <input type="submit" value="提交" id="btn" />
+      </div>
     </div>
   </body>
+  <script>
+    const username = document.getElementById('username')
+    const tel = document.getElementById('tel')
+    const btn = document.getElementById("btn");
+    btn.addEventListener("click", (e) => {
+      localStorage.setItem('key_username', username.value);
+      localStorage.setItem('key_tel', tel.value);
+      window.location.href = "demo.html";
+    });
+  </script>
 </html>
+
+<!-- 
+  https://www.bilibili.com/video/BV1Q94y1V7gZ/?spm_id_from=333.337.search-card.all.click&vd_source=0b9abcde1e0c06aa453d51487fc56291
+ -->
+
+<!-- 
+
+  https://blog.csdn.net/SaRAku/article/details/119114252
+  -->
+
+<!-- 
+
+    业务
+    https://www.bilibili.com/video/BV1XP411A7BP/?spm_id_from=333.788&vd_source=0b9abcde1e0c06aa453d51487fc56291
+   -->
+
+<!-- 
+  https://zhuanlan.zhihu.com/p/349111045
+ -->
+
+<!-- 
+
+    深入GTM
+    https://www.bilibili.com/video/BV1L94y1H7QE/?spm_id_from=333.788&vd_source=0b9abcde1e0c06aa453d51487fc56291
+    -->
+
+<!-- 
+
+      ga4
+      https://www.bilibili.com/video/BV1YG4y1z7fv/?spm_id_from=333.999.0.0&vd_source=0b9abcde1e0c06aa453d51487fc56291
+     -->
