@@ -51,11 +51,14 @@
 
       <hr>
       <h1>
-        <div id="qq">QQ邮箱 <span>99887766@qq.com</span></div>
+        <div id="qq" class="button">QQ邮箱 <span>99887766@qq.com</span></div>
       </h1>
+
+      <button id="btn01" class="btn">按钮btn-000</button>
     </div>
   </body>
   <script>
+    window.dataLayer = window.dataLayer || [];
     const username = document.getElementById('username')
     const tel = document.getElementById('tel')
     const btn = document.getElementById("btn");
@@ -69,6 +72,21 @@
     const qq = document.getElementById('qq')
     qq.addEventListener('click', () => {
       qq.innerHTML = '这是新的点击事件'
+    })
+
+    const btn01 = document.getElementById('btn01')
+    btn01.addEventListener('click', () => {
+      btn01.innerHTML = 'btn01-NEW'
+      window.dataLayer.push({
+        event: "GTM_BTN_CLICK",
+        payload: {
+          a: 1,
+          b: new Date().getTime() + '',
+          payinfo: {
+            shopPrice: 22.97
+          }
+        }
+      })
     })
   </script>
 </html>
@@ -121,6 +139,9 @@
     <script>
 
       // https://zhuanlan.zhihu.com/p/511970844
+      // https://www.zhihu.com/column/c_1339688071969931264
+
+
       // https://www.zhihu.com/column/c_1339688071969931264
       
       document.addEventListener('copy', function() {
