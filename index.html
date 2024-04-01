@@ -46,12 +46,12 @@
         <br />
         <input type="tel" name="tel" id="tel" />
         <br />
-        <input type="submit" value="提交" id="btn" />
+        <input type="submit" value="提交" class="" id="btn" />
       </div>
 
       <hr>
       <h1>
-        <div>QQ邮箱 <span>99887766@qq.com</span></div>
+        <div id="qq">QQ邮箱 <span>99887766@qq.com</span></div>
       </h1>
     </div>
   </body>
@@ -64,6 +64,12 @@
       localStorage.setItem('key_tel', tel.value);
       window.location.href = "demo.html";
     });
+
+
+    const qq = document.getElementById('qq')
+    qq.addEventListener('click', () => {
+      qq.innerHTML = '这是新的点击事件'
+    })
   </script>
 </html>
 
@@ -111,3 +117,18 @@
       https://www.youtube.com/watch?v=UoSqeqnM9yQ
     
     -->
+
+    <script>
+
+      // https://zhuanlan.zhihu.com/p/511970844
+      // https://www.zhihu.com/column/c_1339688071969931264
+      
+      document.addEventListener('copy', function() {
+        console.log('================')
+        dataLayer.push({
+          event: 'textCopy',
+          clipBoardText: window.getSelection().toString(),
+          clipBoardLength: window.getSelection().toString().length
+        })
+      })
+    </script>
