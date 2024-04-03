@@ -50,6 +50,8 @@
       </div>
 
       <hr>
+      <span>99887766@qq.com</span>
+      <span>99887766@qq.com</span>
       <h1>
         <div id="qq" class="button">QQ邮箱 <span>99887766@qq.com</span></div>
       </h1>
@@ -392,11 +394,11 @@
       // https://www.zhihu.com/column/c_1339688071969931264
       
       document.addEventListener('copy', function() {
-        console.log('================')
+        console.log('=======copy=========')
         dataLayer.push({
-          event: 'textCopy',
-          clipBoardText: window.getSelection().toString(),
-          clipBoardLength: window.getSelection().toString().length
+          event: 'textCopied',
+          clipboardText: window.getSelection().toString(),
+          clipboardLength: window.getSelection().toString().length
         })
       })
     </script>
@@ -404,9 +406,14 @@
 
 <!-- 
 
+  https://edu.ichdata.com/courses
+
+  https://www.ichdata.com/google-tag-manager-datalayer-explain.html
 
    深入GTM
     https://www.bilibili.com/video/BV1L94y1H7QE/?spm_id_from=333.788&vd_source=0b9abcde1e0c06aa453d51487fc56291
 
     https://www.bilibili.com/video/BV1YG4y1z7fv/?spm_id_from=333.999.0.0&vd_source=0b9abcde1e0c06aa453d51487fc56291
+
+    https://cloud.tencent.com/developer/information/GTM%E6%A0%B9%E6%8D%AE%E7%8E%B0%E6%9C%89%E5%8F%98%E9%87%8F%E5%88%9B%E5%BB%BA%E6%96%B0%E5%8F%98%E9%87%8F(WPForms%E8%B7%9F%E8%B8%AA)-article
  -->
