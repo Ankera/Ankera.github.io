@@ -21,7 +21,7 @@
   </head>
   <body>
     <div>
-      <div>搜索-New</div>
+      <div>搜索-keyword</div>
       <input type="text" id="input" />
       <button id="btn">搜索</button>
       <div>
@@ -49,7 +49,7 @@
     var btn = document.getElementById("btn");
     var container = document.getElementById("container");
     var params = new URL(window.location.href)
-    var value = params.searchParams.get('searchValue')
+    var value = params.searchParams.get('keyword')
 
     if(value) {
       container.innerHTML = '';
@@ -66,7 +66,7 @@
         alert('请输入搜索内容')
         return;
       }
-      window.location.href = '/gtm.search.html?searchValue=' + input.value;
+      window.location.href = '/gtm.search.html?keyword=' + input.value;
     });
   </script>
 </html>
