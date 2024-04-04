@@ -21,7 +21,7 @@
   </head>
   <body>
     <div>
-      <div>搜索</div>
+      <div>搜索-New</div>
       <input type="text" id="input" />
       <button id="btn">搜索</button>
       <div>
@@ -45,6 +45,18 @@
       return result.toLocaleLowerCase();
     }
 
+    var params = new URL(window.location.href)
+    var value = params.searchParams.get('searchValue')
+
+    if(value) {
+      container.innerHTML = '';
+      for (let i = 0; i < 20; i++) {
+        var li = document.createElement('li');
+        li.textContent = value + '____' + getDynmaticKey();
+        container.appendChild(li)
+      }
+    }
+
     var input = document.getElementById("input");
     var btn = document.getElementById("btn");
     var container = document.getElementById("container");
@@ -56,12 +68,6 @@
         return;
       }
       window.location.href = '/gtm.search.html?searchValue=' + input.value;
-      container.innerHTML = '';
-      for (let i = 0; i < 20; i++) {
-        var li = document.createElement('li');
-        li.textContent = input.value + '____' + getDynmaticKey();
-        container.appendChild(li)
-      }
     });
   </script>
 </html>
