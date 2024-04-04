@@ -45,6 +45,9 @@
       return result.toLocaleLowerCase();
     }
 
+    var input = document.getElementById("input");
+    var btn = document.getElementById("btn");
+    var container = document.getElementById("container");
     var params = new URL(window.location.href)
     var value = params.searchParams.get('searchValue')
 
@@ -56,10 +59,6 @@
         container.appendChild(li)
       }
     }
-
-    var input = document.getElementById("input");
-    var btn = document.getElementById("btn");
-    var container = document.getElementById("container");
 
 
     btn.addEventListener("click", function () {
