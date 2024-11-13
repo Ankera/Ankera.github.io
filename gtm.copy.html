@@ -47,8 +47,34 @@
     <div class="icon-container">
       <div class="icon-button"></div>
     </div>
+    <div class="global_value" id="global_value"></div>
+    <div id="button">点击GOGO</div>
   </body>
 
   <script>
     window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "init-001",
+      GLOBAL_VALUE: new Date().getDate(),
+      goods: {
+        type: "init",
+      },
+    });
+    var num = 0;
+    const button = document.getElementById("button");
+    button.addEventListener("click", function () {
+      dataLayer.push({
+        event: "init-002",
+        GLOBAL_VALUE: new Date().getDate(),
+        goods: {
+          type: "第二次",
+        },
+        append: {
+          name: "apple",
+        },
+        num: num,
+      });
+      num += 2;
+    });
   </script>
+</html>
