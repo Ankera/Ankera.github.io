@@ -22,10 +22,16 @@
     th {
       background-color: #f4f4f4;
     }
+    #summary {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <h1>LocalStorage Viewer</h1>
+  <div id="summary">Total Items: 0</div>
   <table>
     <thead>
       <tr>
@@ -41,20 +47,40 @@
   <script>
     // 获取表格的 tbody 元素
     const tableBody = document.getElementById('localStorageTableBody');
+    const summary = document.getElementById('summary');
+
+    // 创建数组用于排序
+    const normalItems = [];
+    const zimuItems = [];
 
     // 遍历 localStorage
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);        // 获取键
       const value = localStorage.getItem(key); // 获取对应的值
 
-      // 创建表格行
+      // 根据键是否以 "__zimu" 开头分类
+      if (key.startsWith("__zimu")) {
+        zimuItems.push({ key, value });
+      } else {
+        normalItems.push({ key, value });
+      }
+    }
+
+    // 更新总数显示
+    summary.textContent = `Total Items: ${localStorage.length}`;
+
+    // 合并排序后的数组：以 __zimu 开头的在前
+    const allItems = [...zimuItems, ...normalItems];
+
+    // 动态生成表格内容
+    allItems.forEach(item => {
       const row = document.createElement('tr');
       const keyCell = document.createElement('td');
       const valueCell = document.createElement('td');
 
       // 设置单元格内容
-      keyCell.textContent = key;
-      valueCell.textContent = value;
+      keyCell.textContent = item.key;
+      valueCell.textContent = item.value;
 
       // 将单元格添加到行
       row.appendChild(keyCell);
@@ -62,7 +88,7 @@
 
       // 将行添加到表格主体
       tableBody.appendChild(row);
-    }
+    });
   </script>
 </body>
 </html>
