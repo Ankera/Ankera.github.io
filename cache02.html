@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalStorage Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>LocalStorage Viewer</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody id="localStorageTableBody">
+      <!-- 数据会通过 JavaScript 动态填充 -->
+    </tbody>
+  </table>
+
+  <script>
+    // 获取表格的 tbody 元素
+    const tableBody = document.getElementById('localStorageTableBody');
+
+    // 遍历 localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);        // 获取键
+      const value = localStorage.getItem(key); // 获取对应的值
+
+      // 创建表格行
+      const row = document.createElement('tr');
+      const keyCell = document.createElement('td');
+      const valueCell = document.createElement('td');
+
+      // 设置单元格内容
+      keyCell.textContent = key;
+      valueCell.textContent = value;
+
+      // 将单元格添加到行
+      row.appendChild(keyCell);
+      row.appendChild(valueCell);
+
+      // 将行添加到表格主体
+      tableBody.appendChild(row);
+    }
+  </script>
+</body>
+</html>

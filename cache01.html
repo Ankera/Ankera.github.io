@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浏览器缓存测试</title>
+  <style>
+    .sdk-item {
+      color: red;
+      font-weight: bold;
+    }
+
+    .button {
+      width: 50vw;
+      height: 64px;
+      line-height: 64px;
+      background-color: aqua;
+      border: 1px solid red;
+    }
+
+    .link {
+      display: block;
+      width: 50vw;
+      height: 64px;
+      line-height: 64px;
+      background-color: orange;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div>初始化的keys一共 <span id="initSDK" class="sdk-item"></span></div>
+    <button class="button" id="btn">增加缓存1个</button>
+    <button class="button" id="btn5">增加缓存5个</button>
+    <button class="button" id="btn10">增加缓存10个</button>
+    <button class="button" id="clear">清除所有localStorage</button>
+  </div>
+  <br>
+  <a class="link" href="/cache02.html">这是缓存二级页面</a>
+</body>
+<script>
+  var storedLocalStorage = {
+    "1570053:session-data": "v2_7d62f1d551fa0975383d529e38fb01e7_e73fc30f-cf60-4c65-9582-e98955d9375c-tucte2c7b02_1733192330_1733192393_CNawjgYQhepfGPmyxNK4MiAEKAMwXjiHxgpQ____________AVgAYABokOPSmum86vgXcAGAAQA",
+    "ZD-buid": "09b89ccd3912490ca0c10d86864f6e7c",
+    "ZD-settings": "[[\"06db0c0101e0911a25d8156dc37f1f1bb557eb0f\",1733192333]]",
+    "ZD-store": "{\"activeEmbed\":\"chat\",\"widgetShown\":false,\"is_chatting\":false}",
+    "ZD-suid": "{\"id\":\"d8e9babb0d9b45fba2dc7d297c7185df\",\"expiry\":1733193291374,\"tabs\":{\"count\":1,\"expiry\":1733192618480}}",
+    "__LOGIN__logined_cache": "cache",
+    "__PayPalCheckoutForQuick_storage__": "{\"id\":\"uid_4236528946_mdi6ndu6mdu\",\"__session__\":{\"guid\":\"uid_2bf27e06a1_mdm6mje6mty\",\"created\":1734319276633,\"state\":{}},\"funding\":{}}",
+    "__PayPalGoodsForQuick_storage__": "{\"id\":\"uid_610a80b35f_mdm6mjg6mjq\",\"funding\":{},\"__session__\":{\"guid\":\"uid_783e9b1990_mdk6ntk6ndc\",\"created\":1734429587114}}",
+    "__PayPalMessages_storage__": "{\"id\":\"uid_5e138fad42_mtm6mjk6ndi\",\"__session__\":{\"guid\":\"uid_2ba37845e7_mdm6mje6mdc\",\"created\":1734319267306},\"experiments\":{\"treatmentsHash\":\"36bca5ded2561d8eab158154949704a2e546cbe0\",\"expiration\":1734320167989},\"ts\":{\"vr\":\"f53286c11920ad10ec68907eff0018b6\",\"vt\":\"f53286c11920ad10ec68907eff0018b5\"}}",
+    "__e[r4twl610e4keu__megoaa_gqddkg5]e__": "1735784391564",
+    "__klarna_sdk_version": "{\"ttl\":\"1733922059451\",\"rolloutVariant\":\"none\",\"version\":\"0.0.361\"}",
+    "__rtbh.lid": "{\"eventType\":\"lid\",\"id\":\"dcWbZ0nmRq5g7Y6cLRiR\",\"expiryDate\":\"2025-12-03T02:19:49.858Z\"}",
+    "__rtbh.uid": "{\"eventType\":\"uid\",\"id\":\"7198387713988407296\",\"expiryDate\":\"2025-12-03T02:18:49.505Z\"}",
+    "__zlcstore": "{\"IpffpPMPmM6KXe7l38VRVvPcn9hTXvNT\":{\"web_sdk_last_host\":\"widget-mediator.zopim.com\",\"timestamp\":1733192407045,\"account_status\":\"online\"}}",
+    "_applovin_pixel_version": "a/1.3.2",
+    "_mk_luid": "mkb6bceb96-ff34-4f72-8592-4d92db30f587",
+    "_ua_ext3": "{\"platform\":\"MacIntel\",\"product\":\"Gecko\",\"productSub\":\"20030107\",\"userActivation\":{},\"appCodeName\":\"Mozilla\",\"appName\":\"Netscape\",\"appVersion\":\"5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\",\"userAgentData\":{\"brands\":[{\"brand\":\"Chromium\",\"version\":\"130\"},{\"brand\":\"Google Chrome\",\"version\":\"130\"},{\"brand\":\"Not?A_Brand\",\"version\":\"99\"}],\"mobile\":false,\"platform\":\"macOS\"},\"fullVersion\":[{\"brand\":\"Chromium\",\"version\":\"130.0.6723.117\"},{\"brand\":\"Google Chrome\",\"version\":\"130.0.6723.117\"},{\"brand\":\"Not?A_Brand\",\"version\":\"99.0.0.0\"}],\"webdriver\":false,\"currentHeapSize\":79739002,\"heapSizeLimit\":4294705152,\"hardwareConcurrency\":8,\"deviceMemory\":8,\"maxTouchPoints\":0,\"deviceMotion\":true,\"deviceOrientation\":true,\"accelerometer\":true,\"pointerCoarse\":false,\"hoverMedia\":false,\"pointerFine\":true,\"portrait\":true,\"landscape\":false,\"inner\":\"582x685\",\"outer\":\"1433x806\",\"screen\":\"1440x811x30\",\"resolution\":\"1440x900\",\"screenWidth\":1440,\"screenHeight\":900,\"pixelDepth\":30,\"renderer\":\"WebKit WebGL\",\"vendor\":\"WebKit\",\"unmaskedRenderer\":\"ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)\",\"unmaskedVendor\":\"Google Inc. (Apple)\",\"maxTextureSize\":16384,\"maxCubeMapTextureSize\":16384,\"max3DTextureSize\":2048,\"maxVertexUniformVectors\":1024,\"maxFragmentUniformVectors\":1024,\"maxVaryingVectors\":30,\"maxCombinedTextureImageUnits\":32,\"maxVertexAttribs\":16,\"depthBits\":24,\"stencilBits\":0,\"maxDrawBuffers\":8,\"maxColorAttachments\":8,\"maxSamples\":4,\"supportedExtensionsLength\":39}",
+    "_ua_ext3_isGet": "1",
+    "_uetsid": "2282d970aad811efa78d456822ffbb27|16111as|2|frd|0|1793",
+    "_uetsid_exp": "Wed, 04 Dec 2024 02:19:50 GMT",
+    "_uetvid": "ac02a7a0a32a11ef86534d70b5b6ac1b|1t4ni5u|1733125157589|3|1|bat.bing.com/p/insights/c/p",
+    "_uetvid_exp": "Sun, 28 Dec 2025 02:19:50 GMT",
+    "adbws_marker": "1734487107687",
+    "cto_bundle": "YQgZml9mcG10dGFHZ1dVeXFWNmZHV0hyQjJENEZMNzl1a0MyNXVPY3hRZ3BTVWxkb0V2OXBYUnViZCUyQnpjVmRrVGxNaVg2VTczM0hYZ1BaNFE0M25UVnNTZzRJeFhQNUtpclJES3U5RVZEUU5BZ1l6R0xIaGVyNm5SZU95ajF5NldsRXEyWnl1NVRRUmN5bHRKMkoxM0RkVWg4QVU3R0ZwdCUyRnpxTzFDWHdxZFVVbURMNDdYeDk5ZlBDNXZFOGs2emVZeG5iJTJGTlg3WCUyRklmMUZOU3FiWFFYb0lPeU1IdVdJeUQ2TVdWTUlNM3hRd3UxSVdSb2ZLU0tvc3NGNmczTHYwNlRPaUE",
+    "elementor": "{\"__expiration\":{},\"pageViews\":23,\"sessions\":23}",
+    "eng_mt": "{\"ver\":36,\"sessionStartTime\":1733192333290,\"scrollDepth\":0,\"sessionDepth\":[\"1302023524\",\"-1754998239\"],\"timeOnSite\":29115,\"crossSessionsData\":{\"sessionsHistory\":[1732698742168,1732765261430,1732845428262,1732871203604,1732931066475,1732954413961,1732981828529,1733104182665,1733129608561,1733192332202]},\"numOfTimesMetricsSent\":4}",
+    "feh--1789f": "0001734486827086899f2541b7254d00ca9875f47be0d87e",
+    "feh--19c44": "0001734487107697b34970004b7f4d2a6c7f5029fea364a4",
+    "feh--1b2b8": "000173448682896795b03616099dde089e3f676a90eb7ed0",
+    "feh--1bc22": "0001734486825931c303e17a9db256d9caf960f19317b948",
+    "feh--1bda6": "00017344379204350c614e1d318cf03792ce39daccca83b6",
+    "feh--1cd33": "0001734486827943d2dc8a34cde115128777cf803aee7778",
+    "feh--30cb83": "000173448685330439c7907df1f7eecd2fbd51b7d2ae9f73",
+    "feh--330df5": "000173448683004035120c8fba048b39cd6fdf8ec0fe1c68",
+    "feh--37d28a": "0001734486825969d68d46e579c818d3a381579b41ce134b",
+    "feh--6bc5339": "0001734486826025ba58f9a248444e51d2f35781debd2ecf",
+    "feh--8ff2b28": "0001734487106671425591eeeb46e92241f91c3839d2841e",
+    "feh--9fd29358": "0001734486825886dfa004ad8ed49872c74f1c78cd7d4a85",
+    "feh--c52": "0001734486826199cba6ba0ec5bc4f0312dbebed0c7556bf",
+    "feh--da4": "0001734486826431206370b7c5b8c14aba68287e90a11957",
+    "feh--e3a677a0": "0001734486825890a1b87221a13b15123b1c8b79a866f388",
+    "forterToken": "ec2b793830cc47a7b5d2df285f906151,1734487106665",
+    "fw_bid": "{\"value\":\"g1wwG5\",\"createTime\":\"2024-12-18T01:55:35.663Z\"}",
+    "fw_chid": "{\"value\":\"4Pl1xR9\",\"createTime\":\"2024-12-18T01:55:36.363Z\"}",
+    "fw_gs": "{\"state\":{\"persistedData\":{},\"deviceSettings\":{\"facingMode\":\"user\"},\"shopping\":{\"cart\":[],\"cartCurrency\":\"USD\",\"cartUrl\":\"https://www.vevor.com/cart\",\"cartAddToCartText\":\"Add to Cart\",\"cartItemInCartText\":\"\",\"pendingCartUpdate\":0,\"lastCartUpdateTs\":0},\"liveStream\":{\"username\":{\"name\":\"\",\"isUserDefined\":false}},\"gatedVideo\":{\"unlockedVideoIds\":{}}},\"version\":0}",
+    "fw_lets": "{\"value\":\"2024-12-18T01:58:04.041Z\",\"createTime\":\"2024-12-18T01:58:04.042Z\"}",
+    "fw_ply_vclsa": "1734487098411",
+    "fw_ply_vctc": "6",
+    "fw_ply_vctct": "1734490432718",
+    "fw_se": "{\"value\":\"fws2.806be3af-615e-4933-a29c-48bf849ac409.12.1734486831380\",\"createTime\":\"2024-12-18T01:53:51.384Z\"}",
+    "fw_uid": "{\"value\":\"682464a0-6cb5-4e58-a90f-8920a409314e\",\"createTime\":\"2024-12-18T01:55:35.563Z\"}",
+    "fw_utm": "{\"value\":\"{}\",\"createTime\":\"2024-12-10T13:00:54.008Z\"}",
+    "gclid_splited": "\"gclid\"",
+    "lastExternalReferrer": "empty",
+    "lastExternalReferrerTime": "1733192330165",
+    "lscache-scls::2655c3d6-902b-4e7d-9901-2257a783960d-persisted": "\"#::ᯡࡑ䅼ഀᜧ堶恳¼‷ᐣᠲ拸ΰࢌ䌰ù஠➤အ側ゲ䦼䜡昱愠⿃ሤ≙摒䀣㤷Ⴆ溤#䔼&ઠ䘠ĩ␲灰Ǳ䉀ㄥܢԸᲰ*呰㦁အᠦ⯡≉曱䧠⢠໬ʭⁱ䋘パ剰␡⊠ˮ࠷ᔠ⇠­≖甠ጠᦠˠրǐǸ<nૉ峲涆⟗慘⏽Ỿ㙞ἰ  \"",
+    "lscache-scls::2655c3d6-902b-4e7d-9901-2257a783960d-persisted-cacheexpiration": "28887978",
+    "lscache-scls::machine_guid": "\"#::Σ堩䁸ૠ䎆ƈ҆l䑮⑀両夐Ҁ嘡⛈͐ೣઢ䤄  \"",
+    "lscache-scls::machine_guid-cacheexpiration": "28887978",
+    "lscache-scls::machine_id": "\"#::ᆣ姐ጢ㠥䌬昡Ⱐ玤Ǔ֙  \"",
+    "lscache-scls::machine_id-cacheexpiration": "28887978",
+    "lscache-scls::sc_product_BLJZTJCZK180M0O56V0": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涄乎ᅀ୥䁷ࠠ䳕斘ȸԒ制⿋瀧栤〢〧㉭䃭䎷崠ᶨᔠ㌪⨠䛔Ō永癈ݒ倭ㇲ廞㳣㕨ᄈ䓊੏姫⾤ݶ⋾繵ᄈᖜݝ䶽բဠ瀠᧡磴灁౨䙌‬惩ࠢ㧒⣀  \"",
+    "lscache-scls::sc_product_BLJZTJCZK180M0O56V0-cacheexpiration": "28886799",
+    "lscache-scls::sc_product_BXSDNXSQ14YCAKI6CV1": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涂ᖠ㬡ᙂ瀶䁁䝃ዿ䂝¬¸ÐĀޅ䃭䎶䀭廘ඐ媱碓叇ᗎ䀣戹崸䜾嫠守㠠㈕ᶾதẠᇘ空㉴㓤ƹ梐ځᠱᕃᗇǒ䳬ṳ༷5䯪㈠ \"",
+    "lscache-scls::sc_product_BXSDNXSQ14YCAKI6CV1-cacheexpiration": "28886802",
+    "lscache-scls::sc_product_CGLLSNGFDX36YCYB1V0": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涀ʃ䁣̈璠ⵞਢᠩ〮溨㮐ກⶶ~ᬕ砣琢ᠠᠣ姆悆懠怦斠ᗴ亳ଖⶤ㡛ឧ⥶廋䝾䍼⌭䷺㧱᭝憎䀹圽Vᵛຠӧ℡ン᳤勲ऩ࿐⩠ˣ瀠焙  \"",
+    "lscache-scls::sc_product_CGLLSNGFDX36YCYB1V0-cacheexpiration": "28886734",
+    "lscache-scls::sc_product_DD750W8L3110V8XCXV1": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涇‭嶜℀ዿÔm㒀໾瀢㶸ࢀᗬ仝㡞⌁瘐Јɒ搠〧㋠曣佼動჎帢䉥䟶䮲㝘㈭㴥Ì㤨䞮台ƀą㿃⫠ᦾ嗹үᰧ侣ℤ煑ㄘfચࡨ௠ຏ⒢恲壐㒬穴༹̽Ⅵ◀㍐棸᳼Პ₣ü⸥䁧⇋Аö穞⬸㺡ؼط≓獲̀籁䀹圸⏵ṯ卧兹౫Kࡷ⢤ᰥ睦੩斬¼椠ፓ姱⪐删 \"",
+    "lscache-scls::sc_product_DD750W8L3110V8XCXV1-cacheexpiration": "28886798",
+    "lscache-scls::sc_product_DDYYQJDTJDDD5W1H1V9": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涀ڀ۫⸢栢堨㟠㗄氐࿀ᆳ䁌Xřこㄆ坮⺿Юk㺊怡Ḡ♙琢巫旗匱╬⇓㔠嚊ၸč啘Œ印⛋ᑼᆨᎼ瑷禠嵸⨉ᚂ瀭ᯕ᰽䀠攅䐩渌ì棳㑰  \"",
+    "lscache-scls::sc_product_DDYYQJDTJDDD5W1H1V9-cacheexpiration": "28886806",
+    "lscache-scls::sc_product_DZ-400-2EJS200BZJV1": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涇氠䍂Ļ几ⵊ琐ଌ棛Ꮞ※⶗瀯倨怠怢怦怮斪ቄ℣፶眀䰣ⰢⰡ氣䱙㮑濹揯䢳〽璕栠㱠玳倢㝮丮䭨㼪檝庄璍ᵘd⩆ဢ㉩Сⱱ⢠ܰ  \"",
+    "lscache-scls::sc_product_DZ-400-2EJS200BZJV1-cacheexpiration": "28886798",
+    "lscache-scls::sc_product_GDLSSWKBYX00CC356V0": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涀ঀ໲ࡘ֒ộဥ倨㟿㪲◴杯瀯倨怤怮怠怩斡䶧ঠ্ᅆრ㣓䯂㈵ᓠ᦭⬳ࣃ੬x剅ᠥ〠燺㉊尽ᒠ㧈⭥vᩊଠ࣠΃圡㉊ᗱ੪ᕆᔶ଴ᢾ䆆あ䧵Ⲭ剤梉ᰩ䀦㝧⍑汹熔⩲㸠᫲ࢀ㗕ܧ᪤盖ۯ஫#橤⏂぀㷝䴘ᙨ繖″梀΅婡㉑⧪刜〫ᒡ≻䇍㯀熻怢ुᗸ䃲才႒ठ \"",
+    "lscache-scls::sc_product_GDLSSWKBYX00CC356V0-cacheexpiration": "28886781",
+    "lscache-scls::sc_product_WSDDXZJMNLJLYBIRDV1": "\"#::ˠ屠㡓䃘ཫϙၚüՕ№śႃᘢ涇֠ᮔ˲‰悵簧栨怩䋠ؠ᳐㛧઻ᔠ䬠㭊ᚭ㠠䵊≢卉⍾䪱㢱䛡㗥桓㔊䕠ֶ堵Cⵐ瑘Ŝ䩋Ⰱ毶倵䣠ᗬᱠ㧃ᚼ୯䄱ɛ㣈၊๚ᑂ泍⟱䜁ⲑ㒂圿Ᾰ偄½≉र㐪噖ၛ⏖♪湫↱㦀ㄥ挘犏ୣ⥩䧥怣㇑ء䱣ፑ䁇֨  \"",
+    "lscache-scls::sc_product_WSDDXZJMNLJLYBIRDV1-cacheexpiration": "28887979",
+    "lscache-scls::session_id_2655c3d6-902b-4e7d-9901-2257a783960d": "\"#::ᙠ塛tী礸₡㐤〣䁱Źࠨ奁ࢸ痡⁓ᔡ壣Ქ䰤焠 \"",
+    "lscache-scls::session_id_2655c3d6-902b-4e7d-9901-2257a783960d-cacheexpiration": "28886569",
+    "lscache-scls::state_2655c3d6-902b-4e7d-9901-2257a783960d": "\"#::ᯡࡓ䅬昩゛ČҰӤƐ䁹xހˀ፠㲩Ĥ˰ҀǠᑠ⭅e唃勝砃₆Ⴀ㙜㻴̸ʐ䀡傠ِ֐ʑ⢠䃀ᏣР⪠㊫᳥▀|瀢汀咅#㎠ຌ焥ढړᕪဢ縄个cΤᝣ⊀ɓ䅈ၱ琠㜭㦸්̠¡⑃䰨娠ܨ昢䀢戰䎑ᩣ䈵ᚖ䰠ᴹ∤ካ㏴䃈Ȕむ9஬௿怫垴ᒧ⯱℆ᢓ㢎䀩䀠晹怠ࠠ欔液2厀◍ු涂ၰⅺ䶣ᡤᎀЉ寴ᚎⵗೋr⛩&〦㘠᥆怠䥈溃么⩁榙ᕠ猈斓᳨⦡栠ẫࠣ帑⚪⒳䁴⚢䶂挪ᕕ䜧䴰Ⲗ掱ፈ0䇢ࡈ┠̱⢀殶䥧巢䨸౰⢀ヅΣ熈ᛙ䖆␄甠ᮇ⤺၊Ậ抑粎ᡪ㍩牵䥫䅥〨⮬倴ổೖ其娶ᑮ㎶䨨捡婩ᑘⴤ儁୵奢塦ᠭ共്歺撱䩢㋅റӱ嬰堸䁃Ⴔ㰾ㆴ㑨洁婢⧄庂ஈ䨠Ẅ凴ຂㆻணᴱ⥊犭哀ᛊ䨯䄤暜ᠵ䨽瞳哪䑌呰┛ᇶ穲ᔧ姀㢴ຬ瀹當䞐䳖घ慌商偠䂨ѝ㦌筙瑱ᑠ\\\"媁ĭ浳翤  \"",
+    "lscache-scls::state_2655c3d6-902b-4e7d-9901-2257a783960d-cacheexpiration": "28887979",
+    "messageInfo": "{\"messageQty\":8,\"messageTime\":1734319265320}",
+    "r4twl610e4keu__megoaa_gqddkg5": "{\"trackingid\":\"\",\"mguid\":\"821789b9774b9cc42t683400lr6m1s7t\",\"sessionUid\":\"\",\"sspuid\":\"\",\"tn\":\"\",\"accountid\":\"\",\"cpid\":\"\",\"adid\":\"\",\"apiDomain\":\"\",\"dataResource\":\"\",\"configResource\":\"URL\",\"tkdFrom\":\"\",\"tkdDeepFrom\":\"\",\"urlParamDeepFrom\":\"\",\"ck1ParamDeepFrom\":\"\",\"st1ParamDeepFrom\":\"\",\"keyType\":\"\"}",
+    "r4twl610e4keu_mguid": "821789b9774b9cc42t683400lr6m1s7t",
+    "source_data": "{\"lp\":\"https%3A%2F%2Fwww.vevor.com%2F%3Fadp%3Dgmc%26gad_source%3D1%26%26utm_id%3D20992214791%26fbclid%3Dfbclid%26utm_medium%3Dcpc%26utm_term%3D%26utm_skip%3Dgoogle_one_tap_status_1%26variant%3D1%26utm_campaign%3D123%26utm_content%3D123%26tagtag_uid%3D111%26gclid%3Dgclid%26utm_source%3Daaa%26sscid%3D123%26clickid%3D666%26cjevent%3Devent%26cid%3Dcid%26admitad_uid%3D112233%26click_id%3D999%26aff_key%3Daffkey%26subtracking%3Dtrack%26awc%3Dawc%26tracking_url%3Dtrack\",\"lp_utm_source\":\"aaa\",\"lp_utm_medium\":\"cpc\",\"lp_utm_campaign\":\"123\",\"lp_utm_term\":\"\",\"lp_utm_content\":\"123\",\"bidimpid\":\"\",\"adid\":\"\"}",
+    "source_data_exp": "1734592145544",
+    "taboola global:last-external-referrer": "other",
+    "taboola global:user-id": "e73fc30f-cf60-4c65-9582-e98955d9375c-tucte2c7b02",
+    "usi_cart1": "{\"value\":\"[\\\"ZCJRQLS12V8KWCO9JV9,2\\\",\\\"LSGBSDDLP300ZT4CBV0,1\\\"]\",\"usi_expires\":1733310127100}",
+    "usi_email_reported": "{\"value\":\"1\",\"usi_expires\":1732185365021}",
+    "usi_id": "{\"value\":\"l3by1r_1732098960\",\"usi_expires\":1734690965034}",
+    "usi_pids": "{\"value\":\"ZCJRQLS12V8KWCO9JV9,2|LSGBSDDLP300ZT4CBV0,1\",\"usi_expires\":1733310127099}",
+    "usi_prod_image_1": "{\"value\":\"https://img.vevorstatic.com/us%2FZCJRQLS12V8KWCO9JV9%2Fgoods_grid-v5%2Fdiesel-heater-m100-1.2.jpg?timestamp=1730443285000\",\"usi_expires\":1733310127101}",
+    "usi_prod_image_2": "{\"value\":\"https://img.vevorstatic.com/us%2FLSGBSDDLP300ZT4CBV0%2Fgoods_grid-v1%2Fal-pex-tube-m100-1.2.jpg?timestamp=1703214670000\",\"usi_expires\":1733310127103}",
+    "usi_prod_link_1": "{\"value\":\"https://www.vevor.com/diesel-heater-c_10321/vevor-diesel-air-heater-all-in-one-12v-8kw-bluetooth-app-lcd-for-car-rv-indoors-p_010876414069\",\"usi_expires\":1733310127101}",
+    "usi_prod_link_2": "{\"value\":\"https://www.vevor.com/pex-al-pex-tubing-c_10839/1-2-300m-pex-al-pex-tubing-pipe-radiant-heat-gas-piping-plumbing-984ft-roll-p_010766438638\",\"usi_expires\":1733310127102}",
+    "usi_prod_name_1": "{\"value\":\"VEVOR Diesel Air Heater All-in-one 12V 8KW Bluetooth App LCD for Car RV Indoors\",\"usi_expires\":1733310127102}",
+    "usi_prod_name_2": "{\"value\":\"VEVOR PEX-AL-PEX Tube, 984ft, 5/8'' Diameter Aluminum-Plastic Composite Pipe Oxygen Barrier Radiant Floor PEX Pipe, 0.08'' Thickness Radiant Heat Floor Plumbing Inner Aluminum Layer PEX Tubing Pipe\",\"usi_expires\":1733310127103}",
+    "usi_prod_pid_1": "{\"value\":\"ZCJRQLS12V8KWCO9JV9\",\"usi_expires\":1733310127101}",
+    "usi_prod_pid_2": "{\"value\":\"LSGBSDDLP300ZT4CBV0\",\"usi_expires\":1733310127103}",
+    "usi_prod_price_1": "{\"value\":\"$209.70\",\"usi_expires\":1733310127102}",
+    "usi_prod_price_2": "{\"value\":\"$137.19\",\"usi_expires\":1733310127103}",
+    "usi_prod_qty_1": "{\"value\":\"2\",\"usi_expires\":1733310127102}",
+    "usi_prod_qty_2": "{\"value\":\"1\",\"usi_expires\":1733310127103}",
+    "usi_si": "{\"value\":\"pcufdc_1732705327\",\"usi_expires\":1732791727102}",
+    "usi_subtotal": "{\"value\":\"346.89\",\"usi_expires\":1733310127103}",
+    "usi_visitor": "{\"value\":\"loggedin\",\"usi_expires\":1733278789862}",
+    "v_c_report_click_list": "[]",
+    "v_c_report_log": "1",
+    "v_c_report_show_observe_list": "[{\"data\":{\"business\":{\"business_type\":\"mkt_region\",\"business_id\":\"PC-OBS-MktReg-2_1\",\"business_item\":\"https://adsimg.vevorstatic.com/upload/vevor/activity/20241216/85E7F7894A59CF5BFCE3761A7A7EEF57.jpg\",\"business_content\":\"/promotion/end-of-year-sale-special-10144.html\",\"business_model\":\"PC-mod-00014\",\"business_category\":\"5\"},\"module\":\"PC-OBS-MktReg-2\",\"page\":{\"page_target_url\":\"/promotion/end-of-year-sale-special-10144.html\"}},\"insert_time\":1734487108001,\"has_report\":true,\"roundNo\":1734486930448},{\"data\":{\"business\":{\"business_type\":\"mkt_region\",\"business_id\":\"PC-OBS-MktReg-2_2\",\"business_item\":\"https://adsimg.vevorstatic.com/upload/vevor/activity/20241209/8B8281F83E1416F838093D84204CD1F3.jpg\",\"business_content\":\"/s/Rattan?banner\",\"business_model\":\"PC-mod-00014\",\"business_category\":\"5\"},\"module\":\"PC-OBS-MktReg-2\",\"page\":{\"page_target_url\":\"/s/Rattan?banner\"}},\"insert_time\":1734487111002,\"has_report\":false,\"roundNo\":1734486930448}]",
+    "v_c_report_show_report_list": "[]",
+    "vcr_s_clickId": "675afdecba4e280346c92070",
+    "vcr_s_utm_campaign": "16165634",
+    "vcr_s_utm_medium": "affiliate",
+    "vcr_s_utm_source": "inhouse",
+    "vevor-clientinfo": "{\"ul\":\"zh-CN\",\"de\":\"UTF-8\",\"sd\":\"30-bit\",\"sr\":\"1440x900\",\"vp\":\"656x690\",\"t\":-480}",
+    "vevor-landingpage": "https%3A%2F%2Fwww.vevor.com%2Fpromotion%2FVEVOR-MEMBER-PROGRAM-special-9943.html",
+    "vevor-landingtime": "1734487106",
+    "vevor_chosen_address": "{\"shipTemplate\":[\"country\",\"province\",\"city\",\"zipcode\"],\"countryCode\":\"PR\",\"countryName\":\"Puerto Rico\",\"zipcode\":\"20002\",\"provinceCode\":\"PR\",\"provinceName\":\"Puerto Rico\",\"cityName\":\"23\",\"addressId\":335756}",
+    "vevor_cookiePolicy": "1",
+    "vevor_goodsViewHistory": "[{\"time\":1734429596783,\"goodsSn\":\"CDSBZJTQTX48AUEAUV0\",\"imgUrl\":\"https://img.vevorstatic.com/us%2FCDSBZJTQTX48AUEAUV0%2Fgoods_grid-v5%2Fev-adapter-m100-1.2.jpg?timestamp=1682390304000\",\"url\":\"https://www.vevor.com/portable-ev-charger-c_11497/vevor-tesla-to-j1772-charging-adapter-max-48-amp-240v-j1772-evs-charger-adapter-with-ip65-storage-bag-anti-drop-lock-for-tesla-high-powered-wall-connector-destination-charger-and-mobile-connector-p_010929833810\",\"title\":\"VEVOR Tesla to J1772 Charging Adapter, Max 48 Amp 240V, J1772 EVs Charger Adapter, with IP65 Storage Bag Anti-Drop Lock, for Tesla High Powered Wall Connector, Destination Charger and Mobile Connector\",\"firstCategoryId\":10009,\"secondCategoryId\":11288,\"thirdCategoryId\":11497,\"labelId\":\"7\"},{\"time\":1734429590436,\"goodsSn\":\"HYQOHQ3JDBDBZPQ84V0\",\"imgUrl\":\"https://img.vevorstatic.com/us%2FHYQOHQ3JDBDBZPQ84V0%2Fgoods_grid-v1%2Fgrease-coupler-m100-1.2.jpg?timestamp=1699339291000\",\"url\":\"https://www.vevor.com/grease-gun-c_12140/vevor-grease-gun-coupler-10000-psi-high-pressure-3-jaw-locking-quick-release-grease-gun-tip-with-hose-zerk-fittings-cleaner-leak-proof-cap-compatible-with-all-grease-guns-1-8-npt-grease-fittings-p_010737577188\",\"title\":\"VEVOR Grease Gun Coupler, 10000 PSI High Pressure, 3-Jaw Locking, Quick Release Grease Gun Tip with Hose/Zerk Fittings Cleaner/Leak-Proof Cap, Compatible with All Grease Guns 1/8\\\" NPT Grease Fittings\",\"firstCategoryId\":10009,\"secondCategoryId\":10291,\"thirdCategoryId\":12140,\"labelId\":\"7\"}]",
+    "vevor_storage_search_words_history": "{\"expires\":0,\"value\":[{\"name\":\"ice\",\"href\":\"/s/ice\"},{\"name\":\"Black Friday Deals\",\"href\":\"/promotion/Vevor-Black-Friday-Sale-special-438.html\"},{\"name\":\"ic\",\"href\":\"/s/ic\"},{\"name\":\"LDSJSZZCTSH94I35EV0\",\"href\":\"/s/LDSJSZZCTSH94I35EV0\"}]}",
+    "vevor_testCookieId": "cncxwvnwfthj1731658945139"
+  }
+  var keys = Object.keys(storedLocalStorage);
+  for (let i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    localStorage.setItem(key, storedLocalStorage[key]);
+  }
+
+  var initSDK = document.getElementById("initSDK");
+  initSDK.innerHTML = keys.length;
+
+  function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
+
+  var btn1 = document.getElementById("btn")
+  btn1.addEventListener('click', function() {
+    var randomKey = '__zimu' + generateRandomString(10);
+    var randomVal = generateRandomString(1000);
+    localStorage.setItem(randomKey, randomVal);
+  })
+
+  var btn5 = document.getElementById("btn5")
+  btn5.addEventListener('click', function() {
+    for (let i = 0; i < 5; i++) {
+      var randomKey = '__zimu' + generateRandomString(10);
+      var randomVal = generateRandomString(1000);
+      localStorage.setItem(randomKey, randomVal);
+    }
+  })
+
+  var btn10 = document.getElementById("btn10")
+  btn10.addEventListener('click', function() {
+    for (let i = 0; i < 10; i++) {
+      var randomKey = '__zimu' + generateRandomString(10);
+      var randomVal = generateRandomString(1000);
+      localStorage.setItem(randomKey, randomVal);
+    }
+  })
+
+  var clear = document.getElementById("clear")
+  clear.addEventListener('click', function() {
+    localStorage.clear();
+    console.log('All localStorage data has been cleared.');
+  })
+</script>
+</html>
