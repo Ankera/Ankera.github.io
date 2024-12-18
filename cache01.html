@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>浏览器缓存测试</title>
   <style>
-    .sdk-item {
-      color: red;
-      font-weight: bold;
-    }
-
     .button {
       width: 50vw;
       height: 64px;
@@ -26,12 +21,18 @@
       background-color: orange;
       border: 1px solid red;
     }
+
+    .summary {
+      width: 100%;
+      font-size: 32px;
+      font-weight: bold;
+      color: blueviolet;
+    }
   </style>
 </head>
 <body>
   <div id="useFB"></div>
   <div>
-    <div>初始化的keys一共 <span id="initSDK" class="sdk-item"></span></div>
     <button class="button" id="btn">增加缓存1个</button>
     <button class="button" id="btn5">增加缓存5个</button>
     <button class="button" id="btn10">增加缓存10个</button>
@@ -39,7 +40,7 @@
   </div>
   <br>
   <a class="link" href="/cache02.html">这是缓存二级页面</a>
-  <div>Total Items: <span id="summary"></span></div>
+  <div class="summary">Total Items: <span id="summary"></span></div>
 </body>
 <script>
   function isLocalStorageAvailable() {
@@ -190,9 +191,6 @@
     localStorage.setItem(key, storedLocalStorage[key]);
   }
 
-  var initSDK = document.getElementById("initSDK");
-  initSDK.innerHTML = keys.length;
-
   function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -201,6 +199,8 @@
     }
     return result;
   }
+
+  summary.textContent = String(localStorage.length)
 
   var btn1 = document.getElementById("btn")
   btn1.addEventListener('click', function() {
