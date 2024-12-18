@@ -39,6 +39,7 @@
   </div>
   <br>
   <a class="link" href="/cache02.html">这是缓存二级页面</a>
+  <div>Total Items: <span id="summary"></span></div>
 </body>
 <script>
   function isLocalStorageAvailable() {
@@ -56,6 +57,7 @@
   }
   isLocalStorageAvailable()
 
+  const summary = document.getElementById('summary');
 
   var storedLocalStorage = {
     "1570053:session-data": "v2_7d62f1d551fa0975383d529e38fb01e7_e73fc30f-cf60-4c65-9582-e98955d9375c-tucte2c7b02_1733192330_1733192393_CNawjgYQhepfGPmyxNK4MiAEKAMwXjiHxgpQ____________AVgAYABokOPSmum86vgXcAGAAQA",
@@ -205,6 +207,10 @@
     var randomKey = '__zimu' + generateRandomString(10);
     var randomVal = generateRandomString(1000);
     localStorage.setItem(randomKey, randomVal);
+
+    setTimeout(() => {
+      summary.textContent = String(localStorage.length)
+    }, 1000);
   })
 
   var btn5 = document.getElementById("btn5")
@@ -214,6 +220,10 @@
       var randomVal = generateRandomString(1000);
       localStorage.setItem(randomKey, randomVal);
     }
+
+    setTimeout(() => {
+      summary.textContent = String(localStorage.length)
+    }, 1000);
   })
 
   var btn10 = document.getElementById("btn10")
@@ -223,6 +233,10 @@
       var randomVal = generateRandomString(1000);
       localStorage.setItem(randomKey, randomVal);
     }
+
+    setTimeout(() => {
+      summary.textContent = String(localStorage.length)
+    }, 1000);
   })
 
   var clear = document.getElementById("clear")
