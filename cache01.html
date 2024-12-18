@@ -29,6 +29,7 @@
   </style>
 </head>
 <body>
+  <div id="useFB"></div>
   <div>
     <div>初始化的keys一共 <span id="initSDK" class="sdk-item"></span></div>
     <button class="button" id="btn">增加缓存1个</button>
@@ -40,6 +41,22 @@
   <a class="link" href="/cache02.html">这是缓存二级页面</a>
 </body>
 <script>
+  function isLocalStorageAvailable() {
+    const useFB = document.getElementById("useFB");
+    try {
+      const testKey = '__test__';
+      localStorage.setItem(testKey, 'test');
+      localStorage.removeItem(testKey);
+      useFB.innerHTML = "localStorage可以用"
+      return true;
+    } catch (e) {
+       useFB.innerHTML = "localStorage不可以用"
+      return false;
+    }
+  }
+  isLocalStorageAvailable()
+
+
   var storedLocalStorage = {
     "1570053:session-data": "v2_7d62f1d551fa0975383d529e38fb01e7_e73fc30f-cf60-4c65-9582-e98955d9375c-tucte2c7b02_1733192330_1733192393_CNawjgYQhepfGPmyxNK4MiAEKAMwXjiHxgpQ____________AVgAYABokOPSmum86vgXcAGAAQA",
     "ZD-buid": "09b89ccd3912490ca0c10d86864f6e7c",
