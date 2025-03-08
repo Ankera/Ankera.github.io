@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      width: 80vw;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="btn">
+    <button>clear</button>
+  </div>
+</body>
+<script>
+  var page_tag_view_index = 0;
+  var prefix = "vcr_tag";
+  
+  for (let i = 1; i <= 10000; i++) {
+    var page_tag = sessionStorage.getItem(prefix)
+    if (!page_tag) {
+      page_tag_view_index = 1;
+      sessionStorage.setItem(prefix, page_tag_view_index);
+    } else {
+      page_tag_view_index = +page_tag + 1;
+      sessionStorage.setItem(prefix, page_tag_view_index);
+    }
+  }
+
+  var root = document.getElementById("root");
+  root.innerText = page_tag_view_index;
+
+  const btn = document.getElementById("btn")
+  btn.onclick = function() {
+    sessionStorage.removeItem(prefix);
+  }
+</script>
+</html>
