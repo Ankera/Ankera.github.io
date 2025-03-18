@@ -22,12 +22,15 @@
         #pdf-container {
             width: 100vw;
             height: 100vh;
+            overflow-y: scroll; /* 使得PDF可以滚动 */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
             background: white;
         }
         canvas {
+            margin: 10px 0;
             border: 1px solid #ddd;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
@@ -36,29 +39,32 @@
 <body>
 
     <h2>PDF 预览</h2>
-    <div id="pdf-container">
-        <canvas id="pdf-canvas"></canvas>
-    </div>
+    <div id="pdf-container"></div>
 
     <script>
         $(document).ready(function () {
-            var pdfUrl = "https://pdf.lowes.com/productdocuments/72dd83e2-c491-4747-9045-c598cd5d70ad/05381795.pdf"; // 替换为你的 PDF 地址
+            var pdfUrl = "/demo_pdf.pdf"; // 替换为你的 PDF 地址
 
             pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
-                pdf.getPage(1).then(function (page) {
-                    var canvas = $("#pdf-canvas")[0];
-                    var context = canvas.getContext("2d");
+                var totalPages = pdf.numPages;
+                // 遍历所有页面
+                for (var pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
+                    pdf.getPage(pageNumber).then(function (page) {
+                        var canvas = document.createElement("canvas");
+                        $("#pdf-container").append(canvas); // 将每个页面的canvas添加到容器中
+                        var context = canvas.getContext("2d");
 
-                    var viewport = page.getViewport({ scale: 1.5 }); // 放大 1.5 倍
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
+                        var viewport = page.getViewport({ scale: 1.5 }); // 放大 1.5 倍
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
 
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                    });
+                }
             }).catch(function (error) {
                 console.error("PDF 加载失败:", error);
                 $("#pdf-container").html("<p style='color: red;'>无法加载 PDF</p>");
