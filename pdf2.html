@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF 预览 - jQuery + PDF.js</title>
+    <title>PDF 预览</title>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -43,10 +43,13 @@
 
     <script>
         $(document).ready(function () {
-            var pdfUrl = "/demo_pdf.pdf"; // 替换为你的 PDF 地址
+            var pdfUrl = "https://pdf.lowes.com/productdocuments/72dd83e2-c491-4747-9045-c598cd5d70ad/05381795.pdf"; // 替换为你的 PDF 地址
 
             pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
                 var totalPages = pdf.numPages;
+                var screenWidth = $(window).width(); // 获取当前屏幕宽度
+                var scale = screenWidth / 800; // 根据屏幕宽度调整缩放比例（假设标准页面宽度为800px）
+
                 // 遍历所有页面
                 for (var pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
                     pdf.getPage(pageNumber).then(function (page) {
@@ -54,7 +57,7 @@
                         $("#pdf-container").append(canvas); // 将每个页面的canvas添加到容器中
                         var context = canvas.getContext("2d");
 
-                        var viewport = page.getViewport({ scale: 1.5 }); // 放大 1.5 倍
+                        var viewport = page.getViewport({ scale: scale }); // 使用动态计算的缩放比例
                         canvas.width = viewport.width;
                         canvas.height = viewport.height;
 
