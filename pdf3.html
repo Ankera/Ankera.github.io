@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 预览 - Viewer.js</title>
+
+    <!-- 引入 Viewer.js 的 CSS 和 JS 文件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.9.0/viewer.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        #pdf-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">PDF 预览</h2>
+
+    <!-- 这里是用来容纳 PDF 查看器的容器 -->
+    <div id="pdf-container"></div>
+    <script>
+      // PDF 文件的 URL
+      var pdfUrl = "https://pdf.lowes.com/productdocuments/72dd83e2-c491-4747-9045-c598cd5d70ad/05381795.pdf"; // 替换为你自己的 PDF 文件链接
+
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var viewer = new Viewer(document.getElementById('pdf-container'), {
+          inline: true,
+          url: pdfUrl
+        });
+        console.log('==viewer', viewer)
+      });
+    </script>
+
+</body>
+</html>
