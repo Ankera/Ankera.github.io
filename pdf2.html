@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 预览 - jQuery + PDF.js</title>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        #pdf-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>PDF 预览</h2>
+    <div id="pdf-container">
+        <canvas id="pdf-canvas"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var pdfUrl = "https://pdf.lowes.com/productdocuments/72dd83e2-c491-4747-9045-c598cd5d70ad/05381795.pdf"; // 替换为你的 PDF 地址
+
+            pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+                pdf.getPage(1).then(function (page) {
+                    var canvas = $("#pdf-canvas")[0];
+                    var context = canvas.getContext("2d");
+
+                    var viewport = page.getViewport({ scale: 1.5 }); // 放大 1.5 倍
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            }).catch(function (error) {
+                console.error("PDF 加载失败:", error);
+                $("#pdf-container").html("<p style='color: red;'>无法加载 PDF</p>");
+            });
+        });
+    </script>
+
+</body>
+</html>
