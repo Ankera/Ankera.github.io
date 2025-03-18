@@ -43,7 +43,7 @@
 
     <script>
         $(document).ready(function () {
-            var pdfUrl = "https://pdf.lowes.com/productdocuments/72dd83e2-c491-4747-9045-c598cd5d70ad/05381795.pdf"; // 替换为你的 PDF 地址
+            var pdfUrl = "/demo_pdf.pdf"; // 替换为你的 PDF 地址
 
             pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
                 var totalPages = pdf.numPages;
