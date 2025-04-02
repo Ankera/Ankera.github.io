@@ -28,19 +28,14 @@
         .safe-container {
             width: 100%;
             height: calc(100dvh - var(--safe-top, 0px) - var(--safe-bottom, 0px));
-            /* padding-top: var(--safe-top, 0px);
+            padding-top: var(--safe-top, 0px);
             padding-bottom: var(--safe-bottom, 0px);
             padding-left: var(--safe-left, 0px);
-            padding-right: var(--safe-right, 0px); */
-            background-color: red; /* 手动测试 safe-area 是否生效 */
+            padding-right: var(--safe-right, 0px);
+            background-color: #f2f2f2; /* 手动测试 safe-area 是否生效 */
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
             border: 1px solid #ddd;
-            border-radius: 10px;
         }
 
         .safe-info {
