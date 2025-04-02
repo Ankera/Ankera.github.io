@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>iOS & Android H5 全屏适配</title>
     <style>
+        /* 在 CSS 里定义 Safe Area 变量 */
+        :root {
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+            --safe-left: env(safe-area-inset-left);
+            --safe-right: env(safe-area-inset-right);
+        }
+
         html, body {
             margin: 0;
             padding: 0;
             width: 100vw;
-            height: 100dvh; /* 使用动态视口高度 */
+            height: 100dvh;
             background: #f0f0f0;
             display: flex;
             justify-content: center;
@@ -44,22 +52,17 @@
 </head>
 <body>
     <div class="safe-container">
-        iOS & Android H5 全屏适配 Demo
+        H5 iOS & Android H5 全屏适配 Demo
         <div class="safe-info">Safe Area: Loading...</div>
     </div>
 
     <script>
         function updateSafeArea() {
-            const safeTop = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0px';
-            const safeBottom = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0px';
-            const safeLeft = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-left)') || '0px';
-            const safeRight = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-right)') || '0px';
-
-            // 更新 CSS 变量
-            document.documentElement.style.setProperty('--safe-top', safeTop);
-            document.documentElement.style.setProperty('--safe-bottom', safeBottom);
-            document.documentElement.style.setProperty('--safe-left', safeLeft);
-            document.documentElement.style.setProperty('--safe-right', safeRight);
+            const rootStyles = getComputedStyle(document.documentElement);
+            const safeTop = rootStyles.getPropertyValue('--safe-top') || '0px';
+            const safeBottom = rootStyles.getPropertyValue('--safe-bottom') || '0px';
+            const safeLeft = rootStyles.getPropertyValue('--safe-left') || '0px';
+            const safeRight = rootStyles.getPropertyValue('--safe-right') || '0px';
 
             // 在页面上显示 safe area 数值
             document.querySelector('.safe-info').innerText = `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
