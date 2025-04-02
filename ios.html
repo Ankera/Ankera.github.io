@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>iOS & Android H5 全屏适配</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100dvh; /* 使用动态视口高度 */
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .safe-container {
+            width: 100%;
+            height: calc(100dvh - var(--safe-top, 0px) - var(--safe-bottom, 0px));
+            padding-top: var(--safe-top, 0px);
+            padding-bottom: var(--safe-bottom, 0px);
+            padding-left: var(--safe-left, 0px);
+            padding-right: var(--safe-right, 0px);
+            box-sizing: border-box;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .safe-info {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="safe-container">
+        iOS & Android H5 全屏适配 Demo
+        <div class="safe-info">Safe Area: Loading...</div>
+    </div>
+
+    <script>
+        function updateSafeArea() {
+            const safeTop = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0px';
+            const safeBottom = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0px';
+            const safeLeft = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-left)') || '0px';
+            const safeRight = window.getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-right)') || '0px';
+
+            // 更新 CSS 变量
+            document.documentElement.style.setProperty('--safe-top', safeTop);
+            document.documentElement.style.setProperty('--safe-bottom', safeBottom);
+            document.documentElement.style.setProperty('--safe-left', safeLeft);
+            document.documentElement.style.setProperty('--safe-right', safeRight);
+
+            // 在页面上显示 safe area 数值
+            document.querySelector('.safe-info').innerText = `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
+        }
+
+        updateSafeArea();
+        window.addEventListener('resize', updateSafeArea);
+    </script>
+</body>
+</html>
