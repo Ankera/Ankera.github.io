@@ -39,16 +39,33 @@
 
     <script>
         function updateSafeArea() {
-            const safeTop = getComputedStyle(document.documentElement).getPropertyValue('padding-top');
-            const safeBottom = getComputedStyle(document.documentElement).getPropertyValue('padding-bottom');
-            const safeLeft = getComputedStyle(document.documentElement).getPropertyValue('padding-left');
-            const safeRight = getComputedStyle(document.documentElement).getPropertyValue('padding-right');
+            // 创建一个临时元素来获取计算后的值
+            const temp = document.createElement('div');
+            temp.style.position = 'fixed';
+            temp.style.top = 'env(safe-area-inset-top)';
+            temp.style.bottom = 'env(safe-area-inset-bottom)';
+            temp.style.left = 'env(safe-area-inset-left)';
+            temp.style.right = 'env(safe-area-inset-right)';
+            document.body.appendChild(temp);
 
-            document.querySelector('.safe-info').innerText = `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
+            const computedStyle = window.getComputedStyle(temp);
+            const safeTop = computedStyle.top;
+            const safeBottom = computedStyle.bottom;
+            const safeLeft = computedStyle.left;
+            const safeRight = computedStyle.right;
+
+            document.body.removeChild(temp);
+
+            document.querySelector('.safe-info').innerText = 
+                `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
         }
 
-        updateSafeArea();
+        // 页面加载完成后执行
+        window.addEventListener('load', updateSafeArea);
+        // 窗口大小改变时执行
         window.addEventListener('resize', updateSafeArea);
+        // 方向改变时执行
+        window.addEventListener('orientationchange', updateSafeArea);
     </script>
 </body>
 </html>
