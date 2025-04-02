@@ -13,10 +13,15 @@
 
         .safe-container {
             width: 100%;
+            height: calc(100dvh - constant(safe-area-inset-top) - constant(safe-area-inset-bottom));
             height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+            padding-top: constant(safe-area-inset-top);
             padding-top: env(safe-area-inset-top);
+            padding-bottom: constant(safe-area-inset-bottom);
             padding-bottom: env(safe-area-inset-bottom);
+            padding-left: constant(safe-area-inset-left);
             padding-left: env(safe-area-inset-left);
+            padding-right: constant(safe-area-inset-right);
             padding-right: env(safe-area-inset-right);
             background-color: #f2f2f2;
             box-sizing: border-box;
@@ -29,17 +34,92 @@
             font-size: 16px;
             color: #666;
         }
+
+        /* Modal 样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            display: none;
+            z-index: 1000;
+            /* 添加安全区域适配 */
+            padding-top: constant(safe-area-inset-top);
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: constant(safe-area-inset-left);
+            padding-left: env(safe-area-inset-left);
+            padding-right: constant(safe-area-inset-right);
+            padding-right: env(safe-area-inset-right);
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 添加一个按钮来测试 Modal */
+        .test-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 添加关闭按钮样式 */
+        .close-button {
+            position: fixed;
+            top: constant(safe-area-inset-top);
+            top: env(safe-area-inset-top);
+            right: constant(safe-area-inset-right);
+            right: env(safe-area-inset-right);
+            padding: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
     </style>
 </head>
 <body>
     <div class="safe-container">
         H5 2123 iOS & Android H5 全屏适配 Demo
         <div class="safe-info">Safe Area: Loading...</div>
+        <button class="test-button" onclick="showModal()">显示 Modal</button>
+    </div>
+
+    <!-- Modal 结构 -->
+    <div class="modal" id="testModal">
+        <button class="close-button" onclick="hideModal()">✕</button>
+        <div class="modal-content">
+            <h2>全屏 Modal</h2>
+            <p>这是一个全屏的 Modal，适配了安全区域。</p>
+            <p>内容区域可以滚动。</p>
+            <!-- 添加一些测试内容 -->
+            <div style="height: 200vh;">
+                <p>滚动测试内容...</p>
+            </div>
+        </div>
     </div>
 
     <script>
         function updateSafeArea() {
-            // 创建一个临时元素来获取计算后的值
             const temp = document.createElement('div');
             temp.style.position = 'fixed';
             temp.style.top = 'env(safe-area-inset-top)';
@@ -60,11 +140,24 @@
                 `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
         }
 
-        // 页面加载完成后执行
+        // Modal 相关函数
+        function showModal() {
+            const modal = document.getElementById('testModal');
+            modal.style.display = 'block';
+            // 防止背景滚动
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('testModal');
+            modal.style.display = 'none';
+            // 恢复背景滚动
+            document.body.style.overflow = '';
+        }
+
+        // 事件监听
         window.addEventListener('load', updateSafeArea);
-        // 窗口大小改变时执行
         window.addEventListener('resize', updateSafeArea);
-        // 方向改变时执行
         window.addEventListener('orientationchange', updateSafeArea);
     </script>
 </body>
