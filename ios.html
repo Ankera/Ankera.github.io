@@ -2,19 +2,40 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>iOS & Android H5 全屏适配</title>
     <style>
+        /* 重置样式 */
         html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
             font-size: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 根元素安全区域适配 */
+        html {
+            padding-top: constant(safe-area-inset-top);
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: constant(safe-area-inset-left);
+            padding-left: env(safe-area-inset-left);
+            padding-right: constant(safe-area-inset-right);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
         }
 
         .safe-container {
             width: 100%;
-            height: calc(100dvh - constant(safe-area-inset-top) - constant(safe-area-inset-bottom));
-            height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             padding-top: constant(safe-area-inset-top);
             padding-top: env(safe-area-inset-top);
             padding-bottom: constant(safe-area-inset-bottom);
@@ -119,25 +140,26 @@
     </div>
 
     <script>
+        // 获取安全区域值
+        function getSafeAreaValues() {
+            const styles = window.getComputedStyle(document.documentElement);
+            return {
+                top: styles.getPropertyValue('padding-top'),
+                bottom: styles.getPropertyValue('padding-bottom'),
+                left: styles.getPropertyValue('padding-left'),
+                right: styles.getPropertyValue('padding-right')
+            };
+        }
+
         function updateSafeArea() {
-            const temp = document.createElement('div');
-            temp.style.position = 'fixed';
-            temp.style.top = 'env(safe-area-inset-top)';
-            temp.style.bottom = 'env(safe-area-inset-bottom)';
-            temp.style.left = 'env(safe-area-inset-left)';
-            temp.style.right = 'env(safe-area-inset-right)';
-            document.body.appendChild(temp);
-
-            const computedStyle = window.getComputedStyle(temp);
-            const safeTop = computedStyle.top;
-            const safeBottom = computedStyle.bottom;
-            const safeLeft = computedStyle.left;
-            const safeRight = computedStyle.right;
-
-            document.body.removeChild(temp);
-
+            const values = getSafeAreaValues();
+            
+            // 更新显示
             document.querySelector('.safe-info').innerText = 
-                `Safe Area: Top ${safeTop}, Bottom ${safeBottom}, Left ${safeLeft}, Right ${safeRight}`;
+                `Safe Area: Top ${values.top}, Bottom ${values.bottom}, Left ${values.left}, Right ${values.right}`;
+
+            // 打印到控制台以便调试
+            console.log('Safe Area Values:', values);
         }
 
         // Modal 相关函数
@@ -155,10 +177,23 @@
             document.body.style.overflow = '';
         }
 
-        // 事件监听
-        window.addEventListener('load', updateSafeArea);
-        window.addEventListener('resize', updateSafeArea);
-        window.addEventListener('orientationchange', updateSafeArea);
+        // 确保在页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', () => {
+            // 延迟执行以确保样式已应用
+            setTimeout(updateSafeArea, 100);
+        });
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', () => {
+            // 延迟执行以确保样式已应用
+            setTimeout(updateSafeArea, 100);
+        });
+
+        // 监听方向变化
+        window.addEventListener('orientationchange', () => {
+            // 延迟执行以确保样式已应用
+            setTimeout(updateSafeArea, 100);
+        });
     </script>
 </body>
 </html>
