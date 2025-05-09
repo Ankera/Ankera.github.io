@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择浏览器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .browser-list {
+            list-style: none;
+            padding: 0;
+        }
+        .browser-list li {
+            margin: 10px 0;
+        }
+        .browser-list a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>请选择您想使用的浏览器</h1>
+    <ul class="browser-list">
+        <li><a href="intent://scan/#Intent;scheme=chrome;package=com.android.chrome;end" target="_blank">Google Chrome</a></li>
+        <li><a href="intent://scan/#Intent;scheme=firefox;package=org.mozilla.firefox;end" target="_blank">Mozilla Firefox</a></li>
+        <li><a href="intent://scan/#Intent;scheme=safari;package=com.apple.mobilesafari;end" target="_blank">Safari</a></li>
+        <li><a href="intent://scan/#Intent;scheme=edge;package=com.microsoft.emmx;end" target="_blank">Microsoft Edge1</a></li>
+        <li><a href="intent://scan/#Intent;scheme=edge;package=com.microsoft.emmx;end" target="https://www.vevor.com/">Microsoft Edge2</a></li>
+        <li><a href="intent://scan/#Intent;scheme=opera;package=com.opera.browser;end" target="_blank">Opera</a></li>
+    </ul>
+</body>
+</html>
