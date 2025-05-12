@@ -2,11 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My PWA Demo</title>
   <link rel="manifest" href="/manifest.json">
-  <title>Document</title>
+  <link rel="stylesheet" href="/styles/style.css">
+  <meta name="theme-color" content="#317EFB">
 </head>
 <body>
-  <div>hello world</div>
+  <h1>Hello, PWA!</h1>
+  <p>如果一切配置正确，你应该会看到浏览器提示「安装此网站为应用」。</p>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker 注册成功:', registration.scope);
+        }).catch(error => {
+          console.log('Service Worker 注册失败:', error);
+        });
+    }
+  </script>
 </body>
 </html>
