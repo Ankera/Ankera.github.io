@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My PWA Demo</title>
-  <link rel="manifest" href="/us.manifest.json">
-  <link rel="stylesheet" href="/styles/style.css">
-  <meta name="theme-color" content="#317EFB">
-  <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
-</head>
-<body>
-  <div class="trustedsite-trustmark" data-type="202" data-width="135" data-height="56"></div>
-  <h1>Hello, US PWA!</h1>
-  <p>如果一切配置正确，你应该会看到浏览器提示「安装此网站为应用」。</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My PWA Demo</title>
+    <link rel="manifest" href="/us.manifest.json" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <meta name="theme-color" content="#317EFB" />
+    <style>
+      .wrap {
+        border: 2px solid red;
+      }
+    </style>
+    <script>
+      window._trustedsite_config = {
+        lang: "de", // 显示德语徽章
+      };
+    </script>
+    <script
+      type="text/javascript"
+      src="https://cdn.ywxi.net/js/1.js"
+      async
+    ></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div
+        class="trustedsite-trustmark"
+        data-type="202"
+        data-width="177"
+        data-height="73"
+      ></div>
+    </div>
+    <h1>Hello, US PWA!！！</h1>
+    <p>如果一切配置正确，你应该会看到浏览器提示「安装此网站为应用」。</p>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker 注册成功:', registration.scope);
-        }).catch(error => {
-          console.log('Service Worker 注册失败:', error);
-        });
-    }
-  </script>
-</body>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((registration) => {
+            console.log("Service Worker 注册成功:", registration.scope);
+          })
+          .catch((error) => {
+            console.log("Service Worker 注册失败:", error);
+          });
+      }
+    </script>
+  </body>
 </html>
