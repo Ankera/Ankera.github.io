@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TrustedSite 多语言切换 Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+  </style>
+
+  <script>
+    // 支持的语言映射（可根据实际扩展）
+    const supportedLangs = ['en', 'de', 'fr', 'es', 'it', 'nl', 'zh', 'zh-TW'];
+
+    // 获取浏览器语言
+    const rawLang = navigator.language || navigator.userLanguage || 'en';
+    const langCode = rawLang.split('-')[0]; // 处理如 "en-US" → "en"
+
+    // fallback: 若不在支持范围，则默认英文
+    const trustedLang = supportedLangs.includes(langCode) ? langCode : 'en';
+
+    // TrustedSite 配置对象（需在脚本加载前定义）
+    window._trustedsite_config = {
+      lang: trustedLang,
+    };
+  </script>
+
+  <!-- TrustedSite 主脚本 -->
+  <script
+    type="text/javascript"
+    src="https://cdn.ywxi.net/js/1.js"
+    async
+  ></script>
+</head>
+
+<body>
+  <h1>🌐 TrustedSite 多语言演示</h1>
+  <p>当前语言代码：<strong><span id="current-lang"></span></strong></p>
+
+  <!-- TrustedSite 徽章容器 -->
+  <div
+    class="trustedsite-trustmark"
+    data-type="211"
+    data-width="135"
+    data-height="56"
+  ></div>
+
+  <script>
+    // 显示当前设置的语言（调试用）
+    document.getElementById('current-lang').textContent = window._trustedsite_config.lang;
+  </script>
+</body>
+</html>
